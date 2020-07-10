@@ -2404,6 +2404,18 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -2413,7 +2425,11 @@ __webpack_require__.r(__webpack_exports__);
     return {
       form: {
         name: '',
-        email: '',
+        username: '',
+        phone: '',
+        alt_phone: '',
+        address: '',
+        balance: '',
         password: '',
         password_confirmation: ''
       }
@@ -2466,6 +2482,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -2476,7 +2496,11 @@ __webpack_require__.r(__webpack_exports__);
     return {
       form: {
         name: '',
-        email: '',
+        username: '',
+        phone: '',
+        alt_phone: '',
+        address: '',
+        balance: '',
         password: '',
         password_confirmation: ''
       }
@@ -2504,6 +2528,34 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Shared_Layout__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../Shared/Layout */ "./resources/js/Shared/Layout.vue");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -5901,8 +5953,8 @@ var render = function() {
       [
         _c("div", { staticClass: "flex" }, [
           _c("h2", { staticClass: "text-3xl text-indigo-500 font-bold" }, [
-            _vm._v("Users /"),
-            _c("span", { staticClass: "text-gray-700" }, [_vm._v(" Create")])
+            _vm._v("المستخدمين /"),
+            _c("span", { staticClass: "text-gray-700" }, [_vm._v(" أنشاء")])
           ])
         ]),
         _vm._v(" "),
@@ -5927,7 +5979,7 @@ var render = function() {
                     [
                       _c("base-input", {
                         attrs: {
-                          label: "Name",
+                          label: "الأسم",
                           name: "name",
                           error: _vm.$page.errors.name,
                           required: ""
@@ -5949,18 +6001,17 @@ var render = function() {
                     [
                       _c("base-input", {
                         attrs: {
-                          type: "email",
-                          label: "Email address",
-                          name: "email",
-                          error: _vm.$page.errors.email,
+                          label: "أسم المستخدم",
+                          name: "username",
+                          error: _vm.$page.errors.username,
                           required: ""
                         },
                         model: {
-                          value: _vm.form.email,
+                          value: _vm.form.username,
                           callback: function($$v) {
-                            _vm.$set(_vm.form, "email", $$v)
+                            _vm.$set(_vm.form, "username", $$v)
                           },
-                          expression: "form.email"
+                          expression: "form.username"
                         }
                       })
                     ],
@@ -5972,7 +6023,98 @@ var render = function() {
                     [
                       _c("base-input", {
                         attrs: {
-                          label: "Password",
+                          type: "number",
+                          label: "رقم الهاتف",
+                          name: "phone",
+                          error: _vm.$page.errors.phone,
+                          required: ""
+                        },
+                        model: {
+                          value: _vm.form.phone,
+                          callback: function($$v) {
+                            _vm.$set(_vm.form, "phone", $$v)
+                          },
+                          expression: "form.phone"
+                        }
+                      })
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    [
+                      _c("base-input", {
+                        attrs: {
+                          type: "number",
+                          label: "رقم الهاتف الأضافي",
+                          name: "alt_phone",
+                          error: _vm.$page.errors.alt_phone,
+                          required: ""
+                        },
+                        model: {
+                          value: _vm.form.alt_phone,
+                          callback: function($$v) {
+                            _vm.$set(_vm.form, "alt_phone", $$v)
+                          },
+                          expression: "form.alt_phone"
+                        }
+                      })
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    [
+                      _c("base-input", {
+                        attrs: {
+                          label: "العنوان",
+                          name: "address",
+                          error: _vm.$page.errors.address,
+                          required: ""
+                        },
+                        model: {
+                          value: _vm.form.address,
+                          callback: function($$v) {
+                            _vm.$set(_vm.form, "address", $$v)
+                          },
+                          expression: "form.address"
+                        }
+                      })
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    [
+                      _c("base-input", {
+                        attrs: {
+                          type: "number",
+                          label: "الرصيد",
+                          name: "balance",
+                          error: _vm.$page.errors.balance,
+                          required: ""
+                        },
+                        model: {
+                          value: _vm.form.balance,
+                          callback: function($$v) {
+                            _vm.$set(_vm.form, "balance", $$v)
+                          },
+                          expression: "form.balance"
+                        }
+                      })
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    [
+                      _c("base-input", {
+                        attrs: {
+                          label: "كلمة المرور",
                           type: "password",
                           error: _vm.$page.errors.password,
                           required: ""
@@ -5991,7 +6133,7 @@ var render = function() {
                   _vm._v(" "),
                   _c("base-input", {
                     attrs: {
-                      label: "Password confirmation",
+                      label: "تأكيد كلمة المرور",
                       type: "password",
                       error: _vm.$page.errors.password_confirmation,
                       required: ""
@@ -6013,7 +6155,7 @@ var render = function() {
                 { staticClass: "flex justify-end mt-4" },
                 [
                   _c("base-button", { attrs: { primary: "" } }, [
-                    _vm._v("Create user")
+                    _vm._v("أنشاء مستخدم")
                   ])
                 ],
                 1
@@ -6055,12 +6197,12 @@ var render = function() {
       [
         _c("div", { staticClass: "flex" }, [
           _c("h2", { staticClass: "text-3xl text-indigo-500 font-bold" }, [
-            _vm._v("Users /"),
-            _c("span", { staticClass: "text-gray-700" }, [_vm._v(" Edit")])
+            _vm._v("المستخدمين /"),
+            _c("span", { staticClass: "text-gray-700" }, [_vm._v(" تعديل")])
           ])
         ]),
         _vm._v(" "),
-        _c("base-panel", { staticClass: "md:max-w-3xl mt-4" }, [
+        _c("base-panel", { staticClass: "mt-4" }, [
           _c(
             "form",
             {
@@ -6078,7 +6220,7 @@ var render = function() {
                 [
                   _c("base-input", {
                     attrs: {
-                      label: "Name",
+                      label: "الأسم",
                       name: "name",
                       error: _vm.$page.errors.name,
                       required: ""
@@ -6094,24 +6236,89 @@ var render = function() {
                   _vm._v(" "),
                   _c("base-input", {
                     attrs: {
-                      type: "email",
-                      label: "Email address",
-                      name: "email",
-                      error: _vm.$page.errors.email,
+                      label: "اسم المستخدم",
+                      name: "username",
+                      error: _vm.$page.errors.username,
                       required: ""
                     },
                     model: {
-                      value: _vm.form.email,
+                      value: _vm.form.username,
                       callback: function($$v) {
-                        _vm.$set(_vm.form, "email", $$v)
+                        _vm.$set(_vm.form, "username", $$v)
                       },
-                      expression: "form.email"
+                      expression: "form.username"
                     }
                   }),
                   _vm._v(" "),
                   _c("base-input", {
                     attrs: {
-                      label: "Password",
+                      type: "number",
+                      label: "رقم الهاتف",
+                      name: "phone",
+                      error: _vm.$page.errors.phone,
+                      required: ""
+                    },
+                    model: {
+                      value: _vm.form.phone,
+                      callback: function($$v) {
+                        _vm.$set(_vm.form, "phone", $$v)
+                      },
+                      expression: "form.phone"
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("base-input", {
+                    attrs: {
+                      type: "number",
+                      label: "رقم الهاتف الأضافي",
+                      name: "alt_phone",
+                      error: _vm.$page.errors.alt_phone,
+                      required: ""
+                    },
+                    model: {
+                      value: _vm.form.alt_phone,
+                      callback: function($$v) {
+                        _vm.$set(_vm.form, "alt_phone", $$v)
+                      },
+                      expression: "form.alt_phone"
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("base-input", {
+                    attrs: {
+                      label: "العنوان",
+                      name: "address",
+                      error: _vm.$page.errors.address,
+                      required: ""
+                    },
+                    model: {
+                      value: _vm.form.address,
+                      callback: function($$v) {
+                        _vm.$set(_vm.form, "address", $$v)
+                      },
+                      expression: "form.address"
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("base-input", {
+                    attrs: {
+                      label: "الرصيد",
+                      name: "balance",
+                      error: _vm.$page.errors.balance,
+                      required: ""
+                    },
+                    model: {
+                      value: _vm.form.balance,
+                      callback: function($$v) {
+                        _vm.$set(_vm.form, "balance", $$v)
+                      },
+                      expression: "form.balance"
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("base-input", {
+                    attrs: {
+                      label: "كلمة المرور",
                       type: "password",
                       error: _vm.$page.errors.password
                     },
@@ -6125,7 +6332,11 @@ var render = function() {
                   }),
                   _vm._v(" "),
                   _c("base-input", {
-                    attrs: { label: "Password confirmation", type: "password" },
+                    attrs: {
+                      label: "تأكيد كلمة المرور",
+                      type: "password",
+                      error: _vm.$page.errors.password_confirmation
+                    },
                     model: {
                       value: _vm.form.password_confirmation,
                       callback: function($$v) {
@@ -6143,7 +6354,7 @@ var render = function() {
                 { staticClass: "flex justify-end mt-4" },
                 [
                   _c("base-button", { attrs: { primary: "" } }, [
-                    _vm._v("Update user")
+                    _vm._v("تعديل المستخدم")
                   ])
                 ],
                 1
@@ -6182,7 +6393,7 @@ var render = function() {
     _c("div", { staticClass: "mt-8" }, [
       _c("div", { staticClass: "flex justify-between" }, [
         _c("h2", { staticClass: "text-3xl text-gray-700 font-bold" }, [
-          _vm._v("Users")
+          _vm._v("المستخدمين")
         ]),
         _vm._v(" "),
         _c(
@@ -6195,7 +6406,7 @@ var render = function() {
                   "px-4 py-2 bg-indigo-500 hover:bg-indigo-600 text-white font-medium rounded",
                 attrs: { href: "/dashboard/users/create" }
               },
-              [_vm._v("\n                    Create User\n                ")]
+              [_vm._v("\n                    أنشاء مستخدم\n                ")]
             )
           ],
           1
@@ -6227,7 +6438,7 @@ var render = function() {
                           },
                           [
                             _vm._v(
-                              "\n                                    Name\n                                "
+                              "\n                                    الأسم\n                                "
                             )
                           ]
                         ),
@@ -6241,7 +6452,63 @@ var render = function() {
                           },
                           [
                             _vm._v(
-                              "\n                                    Email\n                                "
+                              "\n                                    أسم المستخدم\n                                "
+                            )
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "th",
+                          {
+                            staticClass:
+                              "px-6 py-3 border-b border-gray-200 bg-gray-50 text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider",
+                            staticStyle: { "text-align": "start" }
+                          },
+                          [
+                            _vm._v(
+                              "\n                                    رقم الهاتف\n                                "
+                            )
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "th",
+                          {
+                            staticClass:
+                              "px-6 py-3 border-b border-gray-200 bg-gray-50 text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider",
+                            staticStyle: { "text-align": "start" }
+                          },
+                          [
+                            _vm._v(
+                              "\n                                     رقم الهاتف الأضافي\n                                "
+                            )
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "th",
+                          {
+                            staticClass:
+                              "px-6 py-3 border-b border-gray-200 bg-gray-50 text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider",
+                            staticStyle: { "text-align": "start" }
+                          },
+                          [
+                            _vm._v(
+                              "\n                                     العنوان\n                                "
+                            )
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "th",
+                          {
+                            staticClass:
+                              "px-6 py-3 border-b border-gray-200 bg-gray-50 text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider",
+                            staticStyle: { "text-align": "start" }
+                          },
+                          [
+                            _vm._v(
+                              "\n                                     الرصيد\n                                "
                             )
                           ]
                         ),
@@ -6282,7 +6549,67 @@ var render = function() {
                             [
                               _vm._v(
                                 "\n                                    " +
-                                  _vm._s(user.email) +
+                                  _vm._s(user.username) +
+                                  "\n                                "
+                              )
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "td",
+                            {
+                              staticClass:
+                                "px-6 py-4 whitespace-no-wrap border-b border-gray-200"
+                            },
+                            [
+                              _vm._v(
+                                "\n                                    " +
+                                  _vm._s(user.phone) +
+                                  "\n                                "
+                              )
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "td",
+                            {
+                              staticClass:
+                                "px-6 py-4 whitespace-no-wrap border-b border-gray-200"
+                            },
+                            [
+                              _vm._v(
+                                "\n                                    " +
+                                  _vm._s(user.alt_phone) +
+                                  "\n                                "
+                              )
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "td",
+                            {
+                              staticClass:
+                                "px-6 py-4 whitespace-no-wrap border-b border-gray-200"
+                            },
+                            [
+                              _vm._v(
+                                "\n                                    " +
+                                  _vm._s(user.address) +
+                                  "\n                                "
+                              )
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "td",
+                            {
+                              staticClass:
+                                "px-6 py-4 whitespace-no-wrap border-b border-gray-200"
+                            },
+                            [
+                              _vm._v(
+                                "\n                                    " +
+                                  _vm._s(user.balance) +
                                   "\n                                "
                               )
                             ]
@@ -6305,7 +6632,7 @@ var render = function() {
                                       "/dashboard/users/" + user.id + "/edit"
                                   }
                                 },
-                                [_vm._v("Edit")]
+                                [_vm._v("تعديل")]
                               )
                             ],
                             1
@@ -6979,7 +7306,7 @@ var render = function() {
                     ),
                     _vm._v(" "),
                     _c("span", { staticClass: "mx-2 text-gray-300" }, [
-                      _vm._v("Dashboard")
+                      _vm._v("لوحة التحكم")
                     ])
                   ]
                 )
@@ -7025,7 +7352,7 @@ var render = function() {
                     ),
                     _vm._v(" "),
                     _c("span", { staticClass: "mx-2 text-gray-300" }, [
-                      _vm._v("Users")
+                      _vm._v("المستخدمين")
                     ])
                   ]
                 )

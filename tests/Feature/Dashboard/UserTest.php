@@ -20,8 +20,7 @@ class UserTest extends TestCase
         $this->login();
 
         $this->get('/dashboard/users')
-            ->assertHasProp('users')
-            ->assertPropCount('users', 1);
+            ->assertHasProp('users');
     }
 
     /**
@@ -29,16 +28,28 @@ class UserTest extends TestCase
      */
     public function can_create_new_user()
     {
+
         $this->login();
 
         $this->post('/dashboard/users', [
             'name' => 'Jone Doe',
-            'email' => 'test@test.com',
+            'username' => 'test',
+            'phone' => '0123456789',
+            'alt_phone' => '9876543210',
+            'address' => 'Arkawet',
+            'balance' => 50,
             'password' => 'password',
             'password_confirmation' => 'password'
         ]);
 
-        $this->assertDatabaseHas('users', ['name' => 'Jone Doe']);
+        $this->assertDatabaseHas('users', [
+            'name' => 'Jone Doe',
+            'username' => 'test',
+            'phone' => '0123456789',
+            'alt_phone' => '9876543210',
+            'address' => 'Arkawet',
+            'balance' => 50,
+        ]);
     }
 
     /**
@@ -47,21 +58,31 @@ class UserTest extends TestCase
     public function can_update_user()
     {
         $user = factory(User::class)->create([
-            'name' => 'Jone Doe',
-            'email' => 'test@test.com',
+            'name' => 'Update',
         ]);
 
 
         $this->login();
 
         $this->put("/dashboard/users/$user->id", [
-            'name' => 'Updated name',
-            'email' => 'test@test.com',
+            'name' => 'Jone Doe',
+            'username' => 'test',
+            'phone' => '0123456789',
+            'alt_phone' => '9876543210',
+            'address' => 'Arkawet',
+            'balance' => 50,
             'password' => 'password',
             'password_confirmation' => 'password'
         ]);
 
-        $this->assertDatabaseHas('users', ['name' => 'Updated name']);
+        $this->assertDatabaseHas('users', [
+            'name' => 'Jone Doe',
+            'username' => 'test',
+            'phone' => '0123456789',
+            'alt_phone' => '9876543210',
+            'address' => 'Arkawet',
+            'balance' => 50,
+        ]);
     }
 
     /**
@@ -71,7 +92,6 @@ class UserTest extends TestCase
     {
         $user = factory(User::class)->create([
             'name' => 'Jone Doe',
-            'email' => 'test@test.com',
         ]);
 
 
