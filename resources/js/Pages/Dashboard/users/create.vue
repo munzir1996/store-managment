@@ -5,8 +5,8 @@
             <div class="flex">
                 <h2 class="text-3xl text-indigo-500 font-bold">Users /<span class="text-gray-700"> Create</span></h2>
             </div>
-
-            <base-panel class="md:max-w-3xl mt-4">
+            <!-- md:max-w-3xl -->
+            <base-panel class=" mt-4">
                 <form @submit.prevent="submit">
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
                         <div>
@@ -18,7 +18,7 @@
                         <div>
                             <base-input label="Password" type="password" v-model="form.password" :error="$page.errors.password" required></base-input>
                         </div>
-                        <base-input label="Password confirmation" type="password" v-model="form.password_confirmation" required></base-input>
+                        <base-input label="Password confirmation" type="password" v-model="form.password_confirmation" :error="$page.errors.password_confirmation" required></base-input>
                     </div>
                     <div class="flex justify-end mt-4">
                         <base-button primary>Create user</base-button>
