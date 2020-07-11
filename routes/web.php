@@ -28,4 +28,7 @@ Route::middleware('auth')->prefix('/dashboard')->group(function () {
     Route::get('/users/{user}/edit', 'UserController@edit')->name('users.edit');
     Route::put('/users/{user}', 'UserController@update')->name('users.update');
     Route::delete('/users/{user}', 'UserController@destroy')->name('users.destroy');
+
+    Route::resource('/categories', 'CategoryController');
+
 });
