@@ -30,5 +30,6 @@ Route::middleware('auth')->prefix('/dashboard')->group(function () {
     Route::delete('/users/{user}', 'UserController@destroy')->name('users.destroy');
 
     Route::resource('/categories', 'CategoryController');
+    Route::resource('/subcategories', 'SubcategoryController');
 
 });

@@ -3,7 +3,7 @@
 
         <div class="mt-8">
             <div class="flex">
-                <h2 class="text-3xl text-indigo-500 font-bold">المستخدمين /<span class="text-gray-700"> تعديل</span>
+                <h2 class="text-3xl text-indigo-500 font-bold">التصنيفات /<span class="text-gray-700"> تعديل</span>
                 </h2>
             </div>
 

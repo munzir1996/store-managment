@@ -68,6 +68,7 @@
                                     </td>
 
                                     <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 font-medium">
+                                        <inertia-link :href="`/dashboard/categories/${category.id}`" class="hover:text-gray-500 px-2">عرض</inertia-link>
                                         <inertia-link :href="`/dashboard/categories/${category.id}/edit`" class="text-indigo-600 hover:text-indigo-900">تعديل</inertia-link>
                                     </td>
                                 </tr>

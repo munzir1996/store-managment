@@ -62,7 +62,10 @@ class CategoryController extends Controller
      */
     public function show(Category $category)
     {
-        //
+        return inertia()->render('Dashboard/categories/show', [
+            'category' => $category,
+            'subcategories' => $category->subcategories,
+        ]);
     }
 
     /**
