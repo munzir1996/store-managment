@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Category;
 use App\Http\Requests\CategoryStoreRequest;
 use App\Http\Requests\CategoryUpdateRequest;
+use App\Subcategory;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
@@ -62,10 +63,7 @@ class CategoryController extends Controller
      */
     public function show(Category $category)
     {
-        return inertia()->render('Dashboard/categories/show', [
-            'category' => $category,
-            'subcategories' => $category->subcategories,
-        ]);
+        //
     }
 
     /**
@@ -100,7 +98,7 @@ class CategoryController extends Controller
             'message' => 'تم تعديل التصنيف'
         ]);
 
-        return redirect()->route('categories.index');
+        return redirect()->route('categories.edit', $category->id);
 
     }
 
@@ -120,4 +118,15 @@ class CategoryController extends Controller
             'message' => 'تم التصنيف المستخدم'
         ]);
     }
+
+    public function getSubcategories($id)
+    {
+        $subcategories = Subcategory::where('category_id', $id)->get();
+
+        return $subcategories;
+    }
+
+
 }
+
+

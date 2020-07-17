@@ -3,7 +3,7 @@
 
         <div class="mt-8">
             <div class="flex">
-                <h2 class="text-3xl text-indigo-500 font-bold">التصنيفات / التصنيفات الفرعية /<span class="text-gray-700"> أنشاء</span></h2>
+                <h2 class="text-3xl text-indigo-500 font-bold">التصنيفات / الفرعية /<span class="text-gray-700"> أنشاء</span></h2>
             </div>
             <!-- md:max-w-3xl -->
             <base-panel class=" mt-4">
@@ -19,9 +19,11 @@
                                 <option v-for="category in categories" :value="category.id">
                                     {{category.name}}
                                 </option>
+
                             </select>
                             <span class="text-red-500 text-xs mt-4"
-                                v-if="$page.errors.weight_avaliable">{{ $page.errors.weight_avaliable[0] }}</span>
+                                v-if="$page.errors.category_id">{{ $page.errors.category_id[0] }}
+                            </span>
                         </div>
 
                         <div>
@@ -61,6 +63,7 @@
             submit() {
                 this.$inertia.post('/dashboard/subcategories', this.form);
             },
+
         }
     }
 

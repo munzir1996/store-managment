@@ -3,11 +3,11 @@
 
         <div class="mt-8">
             <div class="flex justify-between">
-                <h2 class="text-3xl text-gray-700 font-bold">التصنيفات</h2>
+                <h2 class="text-3xl text-gray-700 font-bold">المنتجات</h2>
                 <div>
-                    <inertia-link href="/dashboard/categories/create"
+                    <inertia-link href="/dashboard/products/create"
                                   class="px-4 py-2 bg-indigo-500 hover:bg-indigo-600 text-white font-medium rounded">
-                        أنشاء تصنيف
+                        أنشاء منتج
                     </inertia-link>
                 </div>
             </div>
@@ -21,54 +21,54 @@
                                 <tr>
                                     <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-right text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider"
                                         style="text-align: start">
-                                        الأسم
+                                        أسم المنتج
                                     </th>
                                     <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider"
                                         style="text-align: start">
-                                        عمولة الأدمن
+                                        التصنيف الرئيسي
                                     </th>
                                     <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider"
                                         style="text-align: start">
-                                        عمولة المسوق
+                                        التصنيف الفرعي
                                     </th>
                                     <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider"
                                         style="text-align: start">
-                                         سعر التغليف
+                                         الرمز
                                     </th>
-                                    <!-- <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider"
-                                        style="text-align: start">
-                                         الوزن متاح
-                                    </th> -->
                                     <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider"
                                         style="text-align: start">
-                                         سعر الجرام
+                                         السعر الكلى
+                                    </th>
+                                    <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider"
+                                        style="text-align: start">
+                                         الكمية
                                     </th>
                                     <th class="px-6 py-3 border-b border-gray-200 bg-gray-50"></th>
                                 </tr>
                                 </thead>
                                 <tbody class="bg-white text-gray-700">
-                                <tr v-for="category in categories">
+                                <tr v-for="product in products">
                                     <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                                        {{ category.name }}
+                                        {{ product.name }}
                                     </td>
                                     <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                                        {{ category.admin_commission }}
+                                        {{ product.category.name }}
                                     </td>
                                     <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                                        {{ category.marketer_commission }}
+                                        {{ product.subcategory.name }}
                                     </td>
                                     <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                                        {{ category.package_price }}
+                                        {{ product.code }}
                                     </td>
-                                    <!-- <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                                        {{ category.weight_avaliable }}
-                                    </td> -->
                                     <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                                        {{ category.gram_price }}
+                                        {{ product.total_price }}
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                                        {{ product.stock }}
                                     </td>
 
                                     <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 font-medium">
-                                        <inertia-link :href="`/dashboard/categories/${category.id}/edit`" class="text-indigo-600 hover:text-indigo-900">تعديل</inertia-link>
+                                        <inertia-link :href="`/dashboard/products/${product.id}/edit`" class="text-indigo-600 hover:text-indigo-900">تعديل</inertia-link>
                                     </td>
                                 </tr>
                                 </tbody>
@@ -87,7 +87,7 @@
 
     export default {
         components: {Layout},
-        props: ['categories'],
+        props: ['products'],
 
     }
 </script>

@@ -17,7 +17,11 @@ class SubcategoryController extends Controller
      */
     public function index()
     {
-        //
+        $subcategories = Subcategory::with('category')->get();
+
+        return inertia()->render('Dashboard/subcategories/index',[
+            'subcategories' => $subcategories,
+        ]);
     }
 
     /**
@@ -52,7 +56,7 @@ class SubcategoryController extends Controller
             'message' => 'تم أضافة تصنيف فرعي'
         ]);
 
-        return redirect()->route('categories.create');
+        return redirect()->route('subcategories.index');
     }
 
     /**
@@ -100,7 +104,7 @@ class SubcategoryController extends Controller
             'message' => 'تم تعديل التصنيف الفرعي'
         ]);
 
-        return redirect()->route('subcategories.edit', $subcategory->id);
+        return redirect()->route('subcategories.index');
     }
 
     /**
@@ -119,6 +123,6 @@ class SubcategoryController extends Controller
             'message' => 'تم حذف التصنيف الفرعي'
         ]);
 
-        return redirect()->route('categories.show', $id);
+        return redirect()->route('subcategories.index', $id);
     }
 }

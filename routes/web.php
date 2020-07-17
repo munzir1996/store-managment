@@ -18,7 +18,7 @@ Route::get('/', fn() => redirect()->route('dashboard.index'));
 Auth::routes(['register' => false, 'confirm' => false, 'reset' => false]);
 
 
-Route::middleware('auth')->prefix('/dashboard')->group(function () {
+// Route::middleware('auth')->prefix('/dashboard')->group(function () {
     Route::get('/', 'DashboardController@index')->name('dashboard.index');
     Route::get('/ui', 'DashboardController@ui');
 
@@ -30,6 +30,8 @@ Route::middleware('auth')->prefix('/dashboard')->group(function () {
     Route::delete('/users/{user}', 'UserController@destroy')->name('users.destroy');
 
     Route::resource('/categories', 'CategoryController');
+    Route::get('/get/subcategories/{id}', 'CategoryController@getSubcategories')->name('categories.getsubcategories');
     Route::resource('/subcategories', 'SubcategoryController');
+    Route::resource('/products', 'ProductController');
 
-});
+// });
