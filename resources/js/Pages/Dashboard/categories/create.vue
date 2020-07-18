@@ -73,7 +73,7 @@
                     marketer_commission: '',
                     package_price: '',
                     weight_avaliable: '0',
-                    gram_price: null,
+                    gram_price: '',
                 }
             }
         },

@@ -12,6 +12,19 @@ class Product extends Model implements HasMedia
 
     protected $guarded = [];
 
+    public function setSubcategoryIdAttribute($value)
+    {
+
+        ($value != 'null') ? $this->attributes['subcategory_id'] = $value : $this->attributes['subcategory_id'] = null ;
+
+    }
+
+    public function getImageAttribute(){
+
+        return $this->getFirstMediaUrl('products');
+
+    }
+
     public function category()
     {
         return $this->belongsTo(Category::class);

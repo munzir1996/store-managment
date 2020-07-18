@@ -30,8 +30,8 @@ class ProductUpdateRequest extends FormRequest
             'subcategory_id' => 'sometimes',
             'added_value' => 'required',
             'deducted_value' => 'required',
-            'code' => 'required',
-            'image' => 'sometimes',
+            'code' => "required|unique:products,id,{$this->id}",
+            'image' => 'required',
             'stock' => 'required',
         ];
     }
@@ -50,7 +50,9 @@ class ProductUpdateRequest extends FormRequest
             'added_value.required' => 'القيمة المضافة مطلوب',
             'deducted_value.required' => 'القيمة المخصصة مطلوبة',
             'code.required' => 'الرمز مطلوب',
+            'code.unique' => 'الرمز مستخدم',
             'stock.required' => 'كمية المخزن مطلوبة',
+            'image.required' => 'يجب ان يحتوي المنتج على صورة',
         ];
     }
 

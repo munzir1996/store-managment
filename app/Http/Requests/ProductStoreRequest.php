@@ -31,7 +31,7 @@ class ProductStoreRequest extends FormRequest
             'added_value' => 'required',
             'deducted_value' => 'required',
             'code' => 'required|unique:products,code',
-            'image' => 'sometimes',
+            'image' => 'required',
             'stock' => 'required',
         ];
     }
@@ -52,6 +52,7 @@ class ProductStoreRequest extends FormRequest
             'code.required' => 'الرمز مطلوب',
             'code.unique' => 'الرمز مستخدم',
             'stock.required' => 'كمية المخزن مطلوبة',
+            'image.required' => 'يجب ان يحتوى المنتج على صورة',
         ];
     }
 

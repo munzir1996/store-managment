@@ -2442,7 +2442,7 @@ __webpack_require__.r(__webpack_exports__);
         marketer_commission: '',
         package_price: '',
         weight_avaliable: '0',
-        gram_price: null
+        gram_price: ''
       }
     };
   },
@@ -2761,6 +2761,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -2927,42 +2928,48 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
     Layout: _Shared_Layout__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
-  props: ['product', 'image', 'categories'],
+  props: ['product', 'image', 'categories', '_subcategories'],
   data: function data() {
     return {
       form: {
         name: '',
         weight: 1,
         category_id: '',
-        subcategory_id: '',
+        subcategory_id: null,
         added_value: '',
         deducted_value: '',
         code: '',
         stock: '',
-        image: ''
+        image: null
       },
-      subcategories: {},
-      x: ''
+      subcategories: {}
     };
   },
   created: function created() {
     this.form = this.product;
-    this.x = this.image;
+    this.subcategories = this._subcategories;
   },
   methods: {
     submit: function submit() {
-      this.$inertia.put(this.$route('categories.update', this.category.id), this.form);
+      var formData = new FormData();
+      formData.append('image', this.form.image);
+      formData.append('name', this.form.name);
+      formData.append('weight', this.form.weight);
+      formData.append('category_id', this.form.category_id);
+      formData.append('subcategory_id', this.form.subcategory_id);
+      formData.append('added_value', this.form.added_value);
+      formData.append('deducted_value', this.form.deducted_value);
+      formData.append('code', this.form.code);
+      formData.append('stock', this.form.stock);
+      this.$inertia.post(this.$route('products.update', this.product.id), formData);
     },
     uploadFile: function uploadFile(e) {
       this.form.image = e.target.files[0];
-      console.log(e.target.files[0]);
-      console.log(this.form);
     },
     getSubcategoreis: function getSubcategoreis(id) {
       var _this = this;
@@ -2989,6 +2996,8 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Shared_Layout__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../Shared/Layout */ "./resources/js/Shared/Layout.vue");
+//
+//
 //
 //
 //
@@ -7855,7 +7864,7 @@ var render = function() {
                         ],
                         staticClass:
                           "form-input border-gray-300 focus:border-indigo-400 focus:shadow-none focus:bg-white mt-1 block w-full",
-                        attrs: { name: "subcategory_id", required: "" },
+                        attrs: { name: "subcategory_id" },
                         on: {
                           change: function($event) {
                             var $$selectedVal = Array.prototype.filter
@@ -7876,20 +7885,24 @@ var render = function() {
                           }
                         }
                       },
-                      _vm._l(_vm.subcategories, function(subcategory) {
-                        return _c(
-                          "option",
-                          { domProps: { value: subcategory.id } },
-                          [
-                            _vm._v(
-                              "\n                                " +
-                                _vm._s(subcategory.name) +
-                                "\n                            "
-                            )
-                          ]
-                        )
-                      }),
-                      0
+                      [
+                        _c("option"),
+                        _vm._v(" "),
+                        _vm._l(_vm.subcategories, function(subcategory) {
+                          return _c(
+                            "option",
+                            { domProps: { value: subcategory.id } },
+                            [
+                              _vm._v(
+                                "\n                                " +
+                                  _vm._s(subcategory.name) +
+                                  "\n                            "
+                              )
+                            ]
+                          )
+                        })
+                      ],
+                      2
                     ),
                     _vm._v(" "),
                     _vm.$page.errors.subcategory_id
@@ -8243,7 +8256,7 @@ var render = function() {
                         ],
                         staticClass:
                           "form-input border-gray-300 focus:border-indigo-400 focus:shadow-none focus:bg-white mt-1 block w-full",
-                        attrs: { name: "subcategory_id", required: "" },
+                        attrs: { name: "subcategory_id" },
                         on: {
                           change: function($event) {
                             var $$selectedVal = Array.prototype.filter
@@ -8264,20 +8277,24 @@ var render = function() {
                           }
                         }
                       },
-                      _vm._l(_vm.subcategories, function(subcategory) {
-                        return _c(
-                          "option",
-                          { domProps: { value: subcategory.id } },
-                          [
-                            _vm._v(
-                              "\n                                " +
-                                _vm._s(subcategory.name) +
-                                "\n                            "
-                            )
-                          ]
-                        )
-                      }),
-                      0
+                      [
+                        _c("option"),
+                        _vm._v(" "),
+                        _vm._l(_vm.subcategories, function(subcategory) {
+                          return _c(
+                            "option",
+                            { domProps: { value: subcategory.id } },
+                            [
+                              _vm._v(
+                                "\n                                " +
+                                  _vm._s(subcategory.name) +
+                                  "\n                            "
+                              )
+                            ]
+                          )
+                        })
+                      ],
+                      2
                     ),
                     _vm._v(" "),
                     _vm.$page.errors.subcategory_id
@@ -8393,12 +8410,7 @@ var render = function() {
                     ]),
                     _vm._v(" "),
                     _c("input", {
-                      attrs: {
-                        type: "file",
-                        name: "image",
-                        id: "image",
-                        required: ""
-                      },
+                      attrs: { type: "file", name: "image", id: "image" },
                       on: {
                         change: function($event) {
                           return _vm.uploadFile($event)
@@ -8421,12 +8433,10 @@ var render = function() {
                   ]),
                   _vm._v(" "),
                   _c("div", [
-                    _c("img", { attrs: { src: _vm.x, alt: "", srcset: "" } }),
-                    _vm._v(
-                      "\n                        " +
-                        _vm._s(_vm.x) +
-                        "\n                    "
-                    )
+                    _c("img", {
+                      staticClass: "w-1/2",
+                      attrs: { src: this.image }
+                    })
                   ])
                 ]
               ),
@@ -8644,11 +8654,15 @@ var render = function() {
                                 "px-6 py-4 whitespace-no-wrap border-b border-gray-200"
                             },
                             [
-                              _vm._v(
-                                "\n                                    " +
-                                  _vm._s(product.subcategory.name) +
-                                  "\n                                "
-                              )
+                              product.subcategory
+                                ? _c("p", [
+                                    _vm._v(
+                                      "\n                                    " +
+                                        _vm._s(product.subcategory.name) +
+                                        "\n                                    "
+                                    )
+                                  ])
+                                : _vm._e()
                             ]
                           ),
                           _vm._v(" "),

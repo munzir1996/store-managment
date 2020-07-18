@@ -6,6 +6,7 @@ use App\Category;
 use App\Http\Requests\ProductStoreRequest;
 use App\Http\Requests\ProductUpdateRequest;
 use App\Product;
+use App\Subcategory;
 use Illuminate\Http\Request;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
@@ -98,11 +99,13 @@ class ProductController extends Controller
     public function edit(Product $product)
     {
         $categories = Category::all();
+        $subcategories = Subcategory::all();
 
         return inertia()->render('Dashboard/products/edit', [
             'product' => $product,
             'categories' => $categories,
-            'image' => $product->getFirstMedia('products')
+            '_subcategories' => $subcategories,
+            'image' => $product->image
         ]);
     }
 
@@ -115,35 +118,34 @@ class ProductController extends Controller
      */
     public function update(ProductUpdateRequest $request, Product $product)
     {
-        $data = $request->validated();
+
+        $request->validated();
 
         $product->update([
-            'name' => $data['name'],
-            'weight' => $data['weight'],
-            'category_id' => $data['category_id'],
-            'subcategory_id' => $data['subcategory_id'],
-            'added_value' => $data['added_value'],
-            'deducted_value' => $data['deducted_value'],
-            'total_price' => $product->setTotalPrice($data['weight'], $data['added_value'], $data['deducted_value']),
-            'code' => $data['code'],
-            'stock' => $data['stock'],
+            'name' => $request->name,
+            'weight' => $request->weight,
+            'category_id' => $request->category_id,
+            'subcategory_id' => $request->subcategory_id,
+            'added_value' => $request->added_value,
+            'deducted_value' => $request->deducted_value,
+            'total_price' => $product->setTotalPrice($request->weight, $request->added_value, $request->deducted_value),
+            'code' => $request->code,
+            'stock' => $request->stock,
         ]);
 
-        if ($request->has('image')) {
+        if ($request->has('image') && $request->image != 'undefined' ) {
 
-            $mediaItems = $product->getMedia();
-            $mediaItems[0]->delete();
-            $product->addMedia($data['image'])->preservingOriginal()->toMediaCollection('products');
+            $mediaItems = $product->getFirstMedia('products');
+            (!empty($mediaItems)) ? $mediaItems->delete() : $product->addMedia($request->image)->preservingOriginal()->toMediaCollection('products') ;
 
         }
-
 
         session()->flash('toast', [
             'type' => 'success',
             'message' => 'تم تعديل المنتج'
         ]);
 
-        return redirect()->route('products.create');
+        return redirect()->route('products.index');
 
     }
 

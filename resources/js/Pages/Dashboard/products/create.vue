@@ -41,7 +41,8 @@
                             </label>
                             <select
                                 class="form-input border-gray-300 focus:border-indigo-400 focus:shadow-none focus:bg-white mt-1 block w-full"
-                                name="subcategory_id" v-model="form.subcategory_id" required>
+                                name="subcategory_id" v-model="form.subcategory_id">
+                                <option></option>
                                 <option v-for="subcategory in subcategories" :value="subcategory.id">
                                     {{subcategory.name}}
                                 </option>

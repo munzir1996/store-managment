@@ -42,11 +42,11 @@
                             </label>
                             <select
                                 class="form-input border-gray-300 focus:border-indigo-400 focus:shadow-none focus:bg-white mt-1 block w-full"
-                                name="subcategory_id" v-model="form.subcategory_id" required>
+                                name="subcategory_id" v-model="form.subcategory_id">
+                                <option></option>
                                 <option v-for="subcategory in subcategories" :value="subcategory.id">
                                     {{subcategory.name}}
                                 </option>
-
                             </select>
                             <span class="text-red-500 text-xs mt-4"
                                 v-if="$page.errors.subcategory_id">{{ $page.errors.subcategory_id[0] }}
@@ -74,15 +74,14 @@
                             <label class="block">
                                 <span class="text-gray-700">الصورة</span>
                             </label>
-                            <input type="file" name="image" id="image" @change="uploadFile($event)" required>
+                            <input type="file" name="image" id="image" @change="uploadFile($event)">
                             <span class="text-red-500 text-xs mt-4"
                                 v-if="$page.errors.image">{{ $page.errors.image[0] }}
                             </span>
                         </div>
 
                         <div>
-                            <img :src="x" alt="" srcset="">
-                            {{x}}
+                            <img :src="this.image" class="w-1/2">
                         </div>
 
                     </div>
@@ -105,37 +104,45 @@
         components: {
             Layout
         },
-        props: ['product', 'image', 'categories'],
+        props: ['product', 'image', 'categories', '_subcategories'],
         data() {
             return {
                 form: {
                     name: '',
                     weight: 1,
                     category_id: '',
-                    subcategory_id: '',
+                    subcategory_id: null,
                     added_value: '',
                     deducted_value: '',
                     code: '',
                     stock: '',
-                    image: '',
+                    image: null,
                 },
                 subcategories: {},
-                x:'',
             }
         },
         created() {
             this.form = this.product;
-            this.x = this.image;
+            this.subcategories = this._subcategories;
         },
         methods: {
             submit() {
-                this.$inertia.put(this.$route('categories.update', this.category.id), this.form);
+                const formData = new FormData()
+                formData.append('image', this.form.image)
+                formData.append('name', this.form.name)
+                formData.append('weight', this.form.weight)
+                formData.append('category_id', this.form.category_id)
+                formData.append('subcategory_id', this.form.subcategory_id)
+                formData.append('added_value', this.form.added_value)
+                formData.append('deducted_value', this.form.deducted_value)
+                formData.append('code', this.form.code)
+                formData.append('stock', this.form.stock)
+
+                this.$inertia.post(this.$route('products.update', this.product.id), formData);
             },
             uploadFile(e) {
 
                 this.form.image = e.target.files[0]
-                console.log(e.target.files[0]);
-                console.log(this.form);
 
             },
 
