@@ -20,7 +20,7 @@ class CreateUsersTable extends Migration
             $table->string('phone');
             $table->string('alt_phone');
             $table->string('address');
-            $table->unsignedInteger('balance');
+            $table->decimal('balance');
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();

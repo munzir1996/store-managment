@@ -10,7 +10,16 @@
                 <form @submit.prevent="submit">
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
                         <div>
-                            <base-input label="الأسم" name="name" v-model="form.name" :error="$page.errors.name" required></base-input>
+                            <label class="col-md-2 control-label">الصلاحيات</label>
+                            <select class="form-input border-gray-300 focus:border-indigo-400 focus:shadow-none focus:bg-white mt-1 block w-full"
+                                name="permission" v-model="form.permission" required>
+                                <option v-for="(permission, key) in permissions" :key="key" :value="permission">
+                                    {{permission}}
+                                </option>
+                            </select>
+                        </div>
+                        <div>
+                            <base-input label="الأسم الكامل" name="name" v-model="form.name" :error="$page.errors.name" required></base-input>
                         </div>
                         <div>
                             <base-input label="أسم المستخدم" name="username" v-model="form.username" :error="$page.errors.username" required></base-input>
@@ -25,7 +34,7 @@
                             <base-input label="العنوان" name="address" v-model="form.address" :error="$page.errors.address" required></base-input>
                         </div>
                         <div>
-                            <base-input type="number" label="الرصيد" name="balance" v-model="form.balance" :error="$page.errors.balance" required></base-input>
+                            <base-input label="الرصيد" name="balance" v-model="form.balance" :error="$page.errors.balance" required></base-input>
                         </div>
                         <div>
                             <base-input label="كلمة المرور" type="password" v-model="form.password" :error="$page.errors.password" required></base-input>
@@ -48,6 +57,7 @@
 
     export default {
         components: {Layout},
+        props:['permissions'],
         data() {
             return {
                 form: {
@@ -59,6 +69,7 @@
                     balance:'',
                     password: '',
                     password_confirmation: '',
+                    permission:'',
                 }
             }
         },

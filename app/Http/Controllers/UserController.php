@@ -7,6 +7,7 @@ use App\Http\Requests\UserUpdateRequest;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Spatie\Permission\Models\Permission;
 
 class UserController extends Controller
 {
@@ -14,7 +15,9 @@ class UserController extends Controller
     public function index()
     {
         $users = User::all();
-
+        $users->map(function ($user) {
+            $user['permission'] = $user->permissions->pluck('name')->first();
+        });
         return inertia()->render('Dashboard/users/index', [
             'users' => $users
         ]);
@@ -22,15 +25,18 @@ class UserController extends Controller
 
     public function create()
     {
-        return inertia()->render('Dashboard/users/create');
+        $permissions = Permission::all()->pluck('name');
+
+        return inertia()->render('Dashboard/users/create', [
+            'permissions' => $permissions,
+        ]);
     }
 
     public function store(UserStoreRequest $request)
     {
 
         $request->validated();
-
-        User::create([
+        $user = User::create([
             'name' => $request->name,
             'username' => $request->username,
             'phone' => $request->phone,
@@ -39,6 +45,8 @@ class UserController extends Controller
             'balance' => $request->balance,
             'password' => Hash::make($request->password),
         ]);
+
+        $user->syncPermissions($request->permission);
 
         session()->flash('toast', [
             'type' => 'success',
@@ -51,7 +59,14 @@ class UserController extends Controller
 
     public function edit(User $user)
     {
-        return inertia()->render('Dashboard/users/edit', ['user' => $user]);
+        $permissions = Permission::all()->pluck('name');
+        $user['permission'] = $user->permissions->pluck('name')->first();
+
+        return inertia()->render('Dashboard/users/edit', [
+            'user' => $user,
+            'permissions' => $permissions,
+        ]);
+
     }
 
     public function update(UserUpdateRequest $request, User $user)
@@ -63,6 +78,7 @@ class UserController extends Controller
         }
 
         $user->update($data);
+        $user->syncPermissions($request->permission);
 
         session()->flash('toast', [
             'type' => 'success',

@@ -27,8 +27,8 @@
                         </p>
                         @enderror
                     </div>
-                    <div class="flex justify-between items-center mt-6">
-                        <a href="#" class="text-gray-600 text-sm hover:text-gray-500">Forget password?</a>
+                    <div class="flex justify-end items-center mt-6">
+                        {{-- <a href="#" class="text-gray-600 text-sm hover:text-gray-500">Forget password?</a> --}}
                         <button type="submit"
                                 class="py-2 px-4 bg-gray-700 text-white rounded hover:bg-gray-600 focus:outline-none">
                             Login
@@ -36,10 +36,10 @@
                     </div>
                 </form>
             </div>
-            <div class="flex items-center justify-center py-4 bg-gray-100 text-center">
+            {{-- <div class="flex items-center justify-center py-4 bg-gray-100 text-center">
                 <h1 class="text-gray-600 text-sm">Don't have an account</h1>
                 <a href="/register" class="text-blue-600 font-bold mx-2 text-sm hover:text-blue-500">Register now</a>
-            </div>
+            </div> --}}
         </div>
     </div>
 @endsection

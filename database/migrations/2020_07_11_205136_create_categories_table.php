@@ -17,11 +17,11 @@ class CreateCategoriesTable extends Migration
         Schema::create('categories', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->unsignedInteger('admin_commission');
-            $table->unsignedInteger('marketer_commission');
-            $table->unsignedInteger('package_price');
+            $table->decimal('admin_commission');
+            $table->decimal('marketer_commission');
+            $table->decimal('package_price');
             $table->boolean('weight_avaliable');
-            $table->unsignedInteger('gram_price')->default(1);
+            $table->decimal('gram_price')->default(1);
             $table->timestamps();
         });
     }

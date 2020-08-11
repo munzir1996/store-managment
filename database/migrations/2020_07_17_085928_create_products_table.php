@@ -19,9 +19,9 @@ class CreateProductsTable extends Migration
             $table->decimal('weight');
             $table->unsignedBigInteger('category_id');
             $table->unsignedBigInteger('subcategory_id')->nullable();
-            $table->unsignedInteger('added_value');
-            $table->unsignedInteger('deducted_value');
-            $table->unsignedInteger('total_price');
+            $table->decimal('added_value');
+            $table->decimal('deducted_value');
+            $table->decimal('total_price');
             $table->string('code')->unique();
             $table->unsignedInteger('stock');
             $table->timestamps();

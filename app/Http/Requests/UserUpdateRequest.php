@@ -29,8 +29,9 @@ class UserUpdateRequest extends FormRequest
             'phone' => 'required|min:10',
             'alt_phone' => 'required|min:10|different:phone',
             'address' => 'required',
-            'balance' => 'required',
-            'password' => 'sometimes|confirmed|min:8'
+            'balance' => 'required|regex:/^[0-9]\d*(\.\d+)?$/',
+            'password' => 'sometimes|confirmed|min:8',
+            'permission' => 'required',
         ];
     }
 
@@ -52,8 +53,10 @@ class UserUpdateRequest extends FormRequest
             'alt_phone.different' => 'يجب أن يكون رقم الهاتف الأضافي مختلف عن رقم الهاتف',
             'address.required' => 'العنوان مطلوب',
             'balance.required' => 'الرصيد مطلوب',
+            'balance.regex' => 'يجب ان يكون عدد عشري اوصحيح',
             'password.min' => 'طول الحد الأدني هو 8',
             'password.confirmed' => 'كلمة المرور لا تتطابق مع تأكيد كلمة المرور',
+            'permission.required' => 'الصلاحيات مطلوبة',
         ];
     }
 

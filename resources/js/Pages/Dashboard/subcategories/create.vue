@@ -19,7 +19,6 @@
                                 <option v-for="category in categories" :value="category.id">
                                     {{category.name}}
                                 </option>
-
                             </select>
                             <span class="text-red-500 text-xs mt-4"
                                 v-if="$page.errors.category_id">{{ $page.errors.category_id[0] }}
