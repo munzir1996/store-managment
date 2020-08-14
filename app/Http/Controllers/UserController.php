@@ -14,10 +14,11 @@ class UserController extends Controller
 
     public function index()
     {
-        $users = User::all();
+        $users = User::paginate(100);
         $users->map(function ($user) {
             $user['permission'] = $user->permissions->pluck('name')->first();
         });
+
         return inertia()->render('Dashboard/users/index', [
             'users' => $users
         ]);

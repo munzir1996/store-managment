@@ -14,17 +14,17 @@
                                 required></base-input>
                         </div>
                         <div>
-                            <base-input type="number" label="عمولة الأدمن" name="admin_commission"
+                            <base-input label="عمولة الأدمن" name="admin_commission"
                                 v-model="form.admin_commission" :error="$page.errors.admin_commission" required>
                             </base-input>
                         </div>
                         <div>
-                            <base-input type="number" label="عمولة المسوق" name="marketer_commission"
+                            <base-input label="عمولة المسوق" name="marketer_commission"
                                 v-model="form.marketer_commission" :error="$page.errors.marketer_commission" required>
                             </base-input>
                         </div>
                         <div>
-                            <base-input type="number" label="سعر التغليف" name="package_price"
+                            <base-input label="سعر التغليف" name="package_price"
                                 v-model="form.package_price" :error="$page.errors.package_price" required></base-input>
                         </div>
                         <div>
@@ -40,7 +40,7 @@
                                 <span class="text-red-500 text-xs mt-4" v-if="$page.errors.weight_avaliable">{{ $page.errors.weight_avaliable[0] }}</span>
                         </div>
                         <div v-if="form.weight_avaliable == '1'">
-                            <base-input type="number" label="سعر الجرام" name="gram_price" v-model="form.gram_price"
+                            <base-input label="سعر الجرام" name="gram_price" v-model="form.gram_price"
                                 :error="$page.errors.gram_price" required></base-input>
                         </div>
                     </div>

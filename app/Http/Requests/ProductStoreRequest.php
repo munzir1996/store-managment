@@ -25,11 +25,11 @@ class ProductStoreRequest extends FormRequest
     {
         return [
             'name' => 'required',
-            'weight' => 'required',
+            'weight' => 'required|regex:/^[0-9]\d*(\.\d+)?$/',
             'category_id' => 'required',
             'subcategory_id' => 'sometimes',
-            'added_value' => 'required',
-            'deducted_value' => 'required',
+            'added_value' => 'required|regex:/^[0-9]\d*(\.\d+)?$/',
+            'deducted_value' => 'required|regex:/^[0-9]\d*(\.\d+)?$/',
             'code' => 'required|unique:products,code',
             'image' => 'required',
             'stock' => 'required',
@@ -46,9 +46,12 @@ class ProductStoreRequest extends FormRequest
         return [
             'name.required' => 'اسم المنتج مطلوب',
             'weight.required' => 'الوزن مطلوب',
+            'weight.regex' => 'يجب ان يكون عدد عشري اوصحيح',
             'category_id.required' => 'التصنيف مطلوب',
             'added_value.required' => 'القيمة المضافة مطلوب',
+            'added_value.regex' => 'يجب ان يكون عدد عشري اوصحيح',
             'deducted_value.required' => 'القيمة المخصصة مطلوبة',
+            'deducted_value.regex' => 'يجب ان يكون عدد عشري اوصحيح',
             'code.required' => 'الرمز مطلوب',
             'code.unique' => 'الرمز مستخدم',
             'stock.required' => 'كمية المخزن مطلوبة',

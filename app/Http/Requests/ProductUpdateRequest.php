@@ -25,12 +25,12 @@ class ProductUpdateRequest extends FormRequest
     {
         return [
             'name' => 'required',
-            'weight' => 'required',
+            'weight' => 'required|regex:/^[0-9]\d*(\.\d+)?$/',
             'category_id' => 'required',
             'subcategory_id' => 'sometimes',
-            'added_value' => 'required',
-            'deducted_value' => 'required',
-            'code' => "required|unique:products,id,{$this->id}",
+            'added_value' => 'required|regex:/^[0-9]\d*(\.\d+)?$/',
+            'deducted_value' => 'required|regex:/^[0-9]\d*(\.\d+)?$/',
+            'code' => "required|unique:products,code,{$this->id}",
             'image' => 'required',
             'stock' => 'required',
         ];
@@ -46,13 +46,16 @@ class ProductUpdateRequest extends FormRequest
         return [
             'name.required' => 'اسم المنتج مطلوب',
             'weight.required' => 'الوزن مطلوب',
+            'weight.regex' => 'يجب ان يكون عدد عشري اوصحيح',
             'category_id.required' => 'التصنيف مطلوب',
             'added_value.required' => 'القيمة المضافة مطلوب',
+            'added_value.regex' => 'يجب ان يكون عدد عشري اوصحيح',
             'deducted_value.required' => 'القيمة المخصصة مطلوبة',
+            'deducted_value.regex' => 'يجب ان يكون عدد عشري اوصحيح',
             'code.required' => 'الرمز مطلوب',
             'code.unique' => 'الرمز مستخدم',
             'stock.required' => 'كمية المخزن مطلوبة',
-            'image.required' => 'يجب ان يحتوي المنتج على صورة',
+            'image.required' => 'يجب ان يحتوى المنتج على صورة',
         ];
     }
 

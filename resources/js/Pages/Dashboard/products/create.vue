@@ -14,7 +14,7 @@
                                 required></base-input>
                         </div>
                         <div>
-                            <base-input type="number" label="الوزن" name="weight" v-model="form.weight"
+                            <base-input label="الوزن" name="weight" v-model="form.weight"
                                 :error="$page.errors.weight" required>
                             </base-input>
                         </div>
@@ -26,7 +26,7 @@
                                 class="form-input border-gray-300 focus:border-indigo-400 focus:shadow-none focus:bg-white mt-1 block w-full"
                                 @change="getSubcategoreis(form.category_id)" name="category_id"
                                 v-model="form.category_id" required>
-                                <option v-for="category in categories" :value="category.id">
+                                <option v-for="category in categories" :key="category.id" :value="category.id">
                                     {{category.name}}
                                 </option>
 
@@ -43,7 +43,7 @@
                                 class="form-input border-gray-300 focus:border-indigo-400 focus:shadow-none focus:bg-white mt-1 block w-full"
                                 name="subcategory_id" v-model="form.subcategory_id">
                                 <option></option>
-                                <option v-for="subcategory in subcategories" :value="subcategory.id">
+                                <option v-for="subcategory in subcategories" :key="subcategory.id" :value="subcategory.id">
                                     {{subcategory.name}}
                                 </option>
 
@@ -53,12 +53,12 @@
                             </span>
                         </div>
                         <div>
-                            <base-input type="number" label="القيمة المضافة" name="added_value"
+                            <base-input label="القيمة المضافة" name="added_value"
                                 v-model="form.added_value" :error="$page.errors.added_value" required>
                             </base-input>
                         </div>
                         <div>
-                            <base-input type="number" label="القيمة المخصومة" name="deducted_value"
+                            <base-input label="القيمة المخصومة" name="deducted_value"
                                 v-model="form.deducted_value" :error="$page.errors.deducted_value" required>
                             </base-input>
                         </div>

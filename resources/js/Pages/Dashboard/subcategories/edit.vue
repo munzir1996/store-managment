@@ -16,7 +16,7 @@
                             </label>
                             <select class="form-input border-gray-300 focus:border-indigo-400 focus:shadow-none focus:bg-white mt-1 block w-full"
                                 name="category_id" v-model="form.category_id" required>
-                                <option v-for="category in categories" :value="category.id">
+                                <option v-for="category in categories" :key="category.id" :value="category.id">
                                     {{category.name}}
                                 </option>
                             </select>

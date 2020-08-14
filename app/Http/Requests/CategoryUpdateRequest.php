@@ -25,11 +25,11 @@ class CategoryUpdateRequest extends FormRequest
     {
         return [
             'name' => 'required',
-            'admin_commission' => 'required' ,
-            'marketer_commission' => 'required',
-            'package_price' => 'required',
+            'admin_commission' => 'required|regex:/^[0-9]\d*(\.\d+)?$/' ,
+            'marketer_commission' => 'required|regex:/^[0-9]\d*(\.\d+)?$/',
+            'package_price' => 'required|regex:/^[0-9]\d*(\.\d+)?$/',
             'weight_avaliable' => 'required',
-            'gram_price' => 'sometimes',
+            'gram_price' => 'sometimes|nullable|regex:/^[0-9]\d*(\.\d+)?$/',
         ];
     }
 
@@ -43,9 +43,13 @@ class CategoryUpdateRequest extends FormRequest
         return [
             'name.required' => 'الأسم مطلوب',
             'admin_commission.required' => 'عمولة الأدمن مطلوب',
+            'admin_commission.regex' => 'يجب ان يكون عدد عشري اوصحيح',
             'marketer_commission.required' => 'عمولة المسوق مطلوب',
+            'marketer_commission.regex' => 'يجب ان يكون عدد عشري اوصحيح',
             'package_price.required' => 'سعر التغليف مطلوب',
+            'package_price.regex' => 'يجب ان يكون عدد عشري اوصحيح',
             'weight_avaliable.required' => 'الوزن متاح مطلوب',
+            'gram_price.regex' => 'يجب ان يكون عدد عشري اوصحيح',
         ];
     }
 }

@@ -17,7 +17,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::all();
+        $categories = Category::paginate(100);
 
         return inertia()->render('Dashboard/categories/index', [
             'categories' => $categories
@@ -98,7 +98,7 @@ class CategoryController extends Controller
             'message' => 'تم تعديل التصنيف'
         ]);
 
-        return redirect()->route('categories.edit', $category->id);
+        return redirect()->route('categories.index');
 
     }
 

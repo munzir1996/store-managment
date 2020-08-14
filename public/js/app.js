@@ -2564,6 +2564,273 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Shared_Layout__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../Shared/Layout */ "./resources/js/Shared/Layout.vue");
+/* harmony import */ var _Shared_Pagination__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../Shared/Pagination */ "./resources/js/Shared/Pagination.vue");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  components: {
+    Layout: _Shared_Layout__WEBPACK_IMPORTED_MODULE_0__["default"],
+    Pagination: _Shared_Pagination__WEBPACK_IMPORTED_MODULE_1__["default"]
+  },
+  props: ['categories']
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/Pages/Dashboard/orders/create.vue?vue&type=script&lang=js&":
+/*!*****************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/Pages/Dashboard/orders/create.vue?vue&type=script&lang=js& ***!
+  \*****************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _Shared_Layout__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../Shared/Layout */ "./resources/js/Shared/Layout.vue");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  components: {
+    Layout: _Shared_Layout__WEBPACK_IMPORTED_MODULE_0__["default"]
+  },
+  props: ['products', 'sub_categories', 'categories'],
+  computed: {},
+  data: function data() {
+    return {
+      form: {
+        name: '',
+        weight: 1,
+        category_id: '',
+        subcategory_id: '',
+        added_value: '',
+        deducted_value: '',
+        code: '',
+        stock: '',
+        image: ''
+      },
+      orders: []
+    };
+  },
+  created: function created() {},
+  methods: {
+    addToCart: function addToCart(id) {
+      this.orders.push({
+        product_id: id,
+        quantity: 1
+      });
+    },
+    remove: function remove(index) {
+      this.orders.splice(index, 1);
+    },
+    submit: function submit() {
+      this.$inertia.post('/dashboard/products', formData);
+    },
+    getSubcategoreis: function getSubcategoreis(id) {
+      var _this = this;
+
+      axios.get('/dashboard/get/subcategories/' + id).then(function (res) {
+        console.log(res);
+        _this.subcategories = res.data;
+      })["catch"](function (error) {
+        console.log(error);
+      });
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/Pages/Dashboard/orders/edit.vue?vue&type=script&lang=js&":
+/*!***************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/Pages/Dashboard/orders/edit.vue?vue&type=script&lang=js& ***!
+  \***************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _Shared_Layout__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../Shared/Layout */ "./resources/js/Shared/Layout.vue");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -2653,7 +2920,167 @@ __webpack_require__.r(__webpack_exports__);
   components: {
     Layout: _Shared_Layout__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
-  props: ['categories']
+  props: ['product', 'image', 'categories', '_subcategories'],
+  data: function data() {
+    return {
+      form: {
+        id: '',
+        name: '',
+        weight: 1,
+        category_id: '',
+        subcategory_id: null,
+        added_value: '',
+        deducted_value: '',
+        code: '',
+        stock: '',
+        image: null
+      },
+      subcategories: {}
+    };
+  },
+  created: function created() {
+    this.form = this.product;
+    this.subcategories = this._subcategories;
+  },
+  methods: {
+    submit: function submit() {
+      var formData = new FormData();
+      formData.append('image', this.form.image);
+      formData.append('id', this.form.id);
+      formData.append('name', this.form.name);
+      formData.append('weight', this.form.weight);
+      formData.append('category_id', this.form.category_id);
+      formData.append('subcategory_id', this.form.subcategory_id);
+      formData.append('added_value', this.form.added_value);
+      formData.append('deducted_value', this.form.deducted_value);
+      formData.append('code', this.form.code);
+      formData.append('stock', this.form.stock);
+      this.$inertia.post(this.$route('products.update', this.product.id), formData);
+    },
+    uploadFile: function uploadFile(e) {
+      this.form.image = e.target.files[0];
+    },
+    getSubcategoreis: function getSubcategoreis(id) {
+      var _this = this;
+
+      axios.get('/dashboard/get/subcategories/' + id).then(function (res) {
+        console.log(res);
+        _this.subcategories = res.data;
+      })["catch"](function (error) {
+        console.log(error);
+      });
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/Pages/Dashboard/orders/index.vue?vue&type=script&lang=js&":
+/*!****************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/Pages/Dashboard/orders/index.vue?vue&type=script&lang=js& ***!
+  \****************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _Shared_Layout__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../Shared/Layout */ "./resources/js/Shared/Layout.vue");
+/* harmony import */ var _Shared_Pagination__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../Shared/Pagination */ "./resources/js/Shared/Pagination.vue");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  components: {
+    Layout: _Shared_Layout__WEBPACK_IMPORTED_MODULE_0__["default"],
+    Pagination: _Shared_Pagination__WEBPACK_IMPORTED_MODULE_1__["default"]
+  },
+  props: ['products']
 });
 
 /***/ }),
@@ -2937,6 +3364,7 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       form: {
+        id: '',
         name: '',
         weight: 1,
         category_id: '',
@@ -2958,6 +3386,7 @@ __webpack_require__.r(__webpack_exports__);
     submit: function submit() {
       var formData = new FormData();
       formData.append('image', this.form.image);
+      formData.append('id', this.form.id);
       formData.append('name', this.form.name);
       formData.append('weight', this.form.weight);
       formData.append('category_id', this.form.category_id);
@@ -2996,6 +3425,8 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Shared_Layout__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../Shared/Layout */ "./resources/js/Shared/Layout.vue");
+/* harmony import */ var _Shared_Pagination__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../Shared/Pagination */ "./resources/js/Shared/Pagination.vue");
+//
 //
 //
 //
@@ -3083,9 +3514,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
-    Layout: _Shared_Layout__WEBPACK_IMPORTED_MODULE_0__["default"]
+    Layout: _Shared_Layout__WEBPACK_IMPORTED_MODULE_0__["default"],
+    Pagination: _Shared_Pagination__WEBPACK_IMPORTED_MODULE_1__["default"]
   },
   props: ['products']
 });
@@ -3258,6 +3691,8 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Shared_Layout__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../Shared/Layout */ "./resources/js/Shared/Layout.vue");
+/* harmony import */ var _Shared_Pagination__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../Shared/Pagination */ "./resources/js/Shared/Pagination.vue");
+//
 //
 //
 //
@@ -3316,9 +3751,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
-    Layout: _Shared_Layout__WEBPACK_IMPORTED_MODULE_0__["default"]
+    Layout: _Shared_Layout__WEBPACK_IMPORTED_MODULE_0__["default"],
+    Pagination: _Shared_Pagination__WEBPACK_IMPORTED_MODULE_1__["default"]
   },
   props: ['subcategories']
 });
@@ -3951,6 +4388,12 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -7068,7 +7511,6 @@ var render = function() {
                     [
                       _c("base-input", {
                         attrs: {
-                          type: "number",
                           label: "عمولة الأدمن",
                           name: "admin_commission",
                           error: _vm.$page.errors.admin_commission,
@@ -7091,7 +7533,6 @@ var render = function() {
                     [
                       _c("base-input", {
                         attrs: {
-                          type: "number",
                           label: "عمولة المسوق",
                           name: "marketer_commission",
                           error: _vm.$page.errors.marketer_commission,
@@ -7114,7 +7555,6 @@ var render = function() {
                     [
                       _c("base-input", {
                         attrs: {
-                          type: "number",
                           label: "سعر التغليف",
                           name: "package_price",
                           error: _vm.$page.errors.package_price,
@@ -7211,7 +7651,6 @@ var render = function() {
                         [
                           _c("base-input", {
                             attrs: {
-                              type: "number",
                               label: "سعر الجرام",
                               name: "gram_price",
                               error: _vm.$page.errors.gram_price,
@@ -7318,7 +7757,6 @@ var render = function() {
                   _vm._v(" "),
                   _c("base-input", {
                     attrs: {
-                      type: "number",
                       label: "عمولة الأدمن",
                       name: "admin_commission",
                       error: _vm.$page.errors.admin_commission,
@@ -7335,7 +7773,6 @@ var render = function() {
                   _vm._v(" "),
                   _c("base-input", {
                     attrs: {
-                      type: "number",
                       label: "عمولة المسوق",
                       name: "marketer_commission",
                       error: _vm.$page.errors.marketer_commission,
@@ -7352,7 +7789,6 @@ var render = function() {
                   _vm._v(" "),
                   _c("base-input", {
                     attrs: {
-                      type: "number",
                       label: "سعر التغليف",
                       name: "package_price",
                       error: _vm.$page.errors.package_price,
@@ -7447,7 +7883,6 @@ var render = function() {
                         [
                           _c("base-input", {
                             attrs: {
-                              type: "number",
                               label: "سعر الجرام",
                               name: "gram_price",
                               error: _vm.$page.errors.gram_price,
@@ -7510,238 +7945,1264 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("layout", [
-    _c("div", { staticClass: "mt-8" }, [
-      _c("div", { staticClass: "flex justify-between" }, [
-        _c("h2", { staticClass: "text-3xl text-gray-700 font-bold" }, [
-          _vm._v("التصنيفات")
-        ]),
-        _vm._v(" "),
-        _c(
-          "div",
-          [
-            _c(
-              "inertia-link",
-              {
-                staticClass:
-                  "px-4 py-2 bg-indigo-500 hover:bg-indigo-600 text-white font-medium rounded",
-                attrs: { href: "/dashboard/categories/create" }
-              },
-              [_vm._v("\n                    أنشاء تصنيف\n                ")]
-            )
-          ],
-          1
-        )
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "mt-4" }, [
-        _c("div", { staticClass: "flex flex-col" }, [
+    _c(
+      "div",
+      { staticClass: "mt-8" },
+      [
+        _c("div", { staticClass: "flex justify-between" }, [
+          _c("h2", { staticClass: "text-3xl text-gray-700 font-bold" }, [
+            _vm._v("التصنيفات")
+          ]),
+          _vm._v(" "),
           _c(
             "div",
-            { staticClass: "-my-2 py-2 overflow-x-auto sm:-mx-6 sm:px-6" },
+            [
+              _c(
+                "inertia-link",
+                {
+                  staticClass:
+                    "px-4 py-2 bg-indigo-500 hover:bg-indigo-600 text-white font-medium rounded",
+                  attrs: { href: "/dashboard/categories/create" }
+                },
+                [_vm._v("\n                    أنشاء تصنيف\n                ")]
+              )
+            ],
+            1
+          )
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "mt-4" }, [
+          _c("div", { staticClass: "flex flex-col" }, [
+            _c(
+              "div",
+              { staticClass: "-my-2 py-2 overflow-x-auto sm:-mx-6 sm:px-6" },
+              [
+                _c(
+                  "div",
+                  {
+                    staticClass:
+                      "align-middle inline-block min-w-full shadow overflow-hidden sm:rounded-lg border-b border-gray-200"
+                  },
+                  [
+                    _c("table", { staticClass: "min-w-full" }, [
+                      _c("thead", { staticClass: "bg-gray-100" }, [
+                        _c("tr", [
+                          _c(
+                            "th",
+                            {
+                              staticClass:
+                                "px-6 py-3 border-b border-gray-200 bg-gray-50 text-right text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider",
+                              staticStyle: { "text-align": "start" }
+                            },
+                            [
+                              _vm._v(
+                                "\n                                    الأسم\n                                "
+                              )
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "th",
+                            {
+                              staticClass:
+                                "px-6 py-3 border-b border-gray-200 bg-gray-50 text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider",
+                              staticStyle: { "text-align": "start" }
+                            },
+                            [
+                              _vm._v(
+                                "\n                                    عمولة الأدمن\n                                "
+                              )
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "th",
+                            {
+                              staticClass:
+                                "px-6 py-3 border-b border-gray-200 bg-gray-50 text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider",
+                              staticStyle: { "text-align": "start" }
+                            },
+                            [
+                              _vm._v(
+                                "\n                                    عمولة المسوق\n                                "
+                              )
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "th",
+                            {
+                              staticClass:
+                                "px-6 py-3 border-b border-gray-200 bg-gray-50 text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider",
+                              staticStyle: { "text-align": "start" }
+                            },
+                            [
+                              _vm._v(
+                                "\n                                     سعر التغليف\n                                "
+                              )
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "th",
+                            {
+                              staticClass:
+                                "px-6 py-3 border-b border-gray-200 bg-gray-50 text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider",
+                              staticStyle: { "text-align": "start" }
+                            },
+                            [
+                              _vm._v(
+                                "\n                                     سعر الجرام\n                                "
+                              )
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c("th", {
+                            staticClass:
+                              "px-6 py-3 border-b border-gray-200 bg-gray-50"
+                          })
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "tbody",
+                        { staticClass: "bg-white text-gray-700" },
+                        _vm._l(_vm.categories.data, function(category) {
+                          return _c("tr", { key: category.id }, [
+                            _c(
+                              "td",
+                              {
+                                staticClass:
+                                  "px-6 py-4 whitespace-no-wrap border-b border-gray-200"
+                              },
+                              [
+                                _vm._v(
+                                  "\n                                    " +
+                                    _vm._s(category.name) +
+                                    "\n                                "
+                                )
+                              ]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "td",
+                              {
+                                staticClass:
+                                  "px-6 py-4 whitespace-no-wrap border-b border-gray-200"
+                              },
+                              [
+                                _vm._v(
+                                  "\n                                    " +
+                                    _vm._s(category.admin_commission) +
+                                    "\n                                "
+                                )
+                              ]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "td",
+                              {
+                                staticClass:
+                                  "px-6 py-4 whitespace-no-wrap border-b border-gray-200"
+                              },
+                              [
+                                _vm._v(
+                                  "\n                                    " +
+                                    _vm._s(category.marketer_commission) +
+                                    "\n                                "
+                                )
+                              ]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "td",
+                              {
+                                staticClass:
+                                  "px-6 py-4 whitespace-no-wrap border-b border-gray-200"
+                              },
+                              [
+                                _vm._v(
+                                  "\n                                    " +
+                                    _vm._s(category.package_price) +
+                                    "\n                                "
+                                )
+                              ]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "td",
+                              {
+                                staticClass:
+                                  "px-6 py-4 whitespace-no-wrap border-b border-gray-200"
+                              },
+                              [
+                                _vm._v(
+                                  "\n                                    " +
+                                    _vm._s(category.gram_price) +
+                                    "\n                                "
+                                )
+                              ]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "td",
+                              {
+                                staticClass:
+                                  "px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 font-medium"
+                              },
+                              [
+                                _c(
+                                  "inertia-link",
+                                  {
+                                    staticClass:
+                                      "text-indigo-600 hover:text-indigo-900",
+                                    attrs: {
+                                      href:
+                                        "/dashboard/categories/" +
+                                        category.id +
+                                        "/edit"
+                                    }
+                                  },
+                                  [_vm._v("تعديل")]
+                                )
+                              ],
+                              1
+                            )
+                          ])
+                        }),
+                        0
+                      )
+                    ])
+                  ]
+                )
+              ]
+            )
+          ])
+        ]),
+        _vm._v(" "),
+        _c("pagination", {
+          staticClass: "mt-5",
+          attrs: { links: _vm.categories.links }
+        })
+      ],
+      1
+    )
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/Pages/Dashboard/orders/create.vue?vue&type=template&id=0a2a2c12&":
+/*!*********************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/Pages/Dashboard/orders/create.vue?vue&type=template&id=0a2a2c12& ***!
+  \*********************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("layout", [
+    _c(
+      "div",
+      { staticClass: "mt-8" },
+      [
+        _c("div", { staticClass: "flex" }, [
+          _c("h2", { staticClass: "text-3xl text-indigo-500 font-bold" }, [
+            _vm._v(" خدمة العملاء /"),
+            _c("span", { staticClass: "text-gray-700" }, [
+              _vm._v(" أنشاء طلب ")
+            ])
+          ])
+        ]),
+        _vm._v(" "),
+        _c("base-panel", { staticClass: " mt-4" }, [
+          _c("div", { staticClass: "grid grid-cols-1 sm:grid-cols-2 gap-6" }, [
+            _c(
+              "div",
+              [
+                _c("base-input", {
+                  attrs: {
+                    label: "رقم العميل",
+                    name: "customer_phone",
+                    error: _vm.$page.errors.customer_phone,
+                    required: ""
+                  },
+                  model: {
+                    value: _vm.form.customer_phone,
+                    callback: function($$v) {
+                      _vm.$set(_vm.form, "customer_phone", $$v)
+                    },
+                    expression: "form.customer_phone"
+                  }
+                })
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c(
+              "div",
+              [
+                _c("base-input", {
+                  attrs: {
+                    label: " رقم العميل الأضافي",
+                    name: "customer_alt_phone",
+                    error: _vm.$page.errors.customer_alt_phone
+                  },
+                  model: {
+                    value: _vm.form.customer_alt_phone,
+                    callback: function($$v) {
+                      _vm.$set(_vm.form, "customer_alt_phone", $$v)
+                    },
+                    expression: "form.customer_alt_phone"
+                  }
+                })
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c(
+              "div",
+              [
+                _c("base-input", {
+                  attrs: {
+                    label: "عنوان العميل",
+                    name: "customer_address",
+                    error: _vm.$page.errors.customer_address,
+                    required: ""
+                  },
+                  model: {
+                    value: _vm.form.customer_address,
+                    callback: function($$v) {
+                      _vm.$set(_vm.form, "customer_address", $$v)
+                    },
+                    expression: "form.customer_address"
+                  }
+                })
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c(
+              "div",
+              [
+                _c("base-input", {
+                  attrs: {
+                    label: "خصم",
+                    name: "discount",
+                    error: _vm.$page.errors.discount
+                  },
+                  model: {
+                    value: _vm.form.discount,
+                    callback: function($$v) {
+                      _vm.$set(_vm.form, "discount", $$v)
+                    },
+                    expression: "form.discount"
+                  }
+                })
+              ],
+              1
+            )
+          ])
+        ]),
+        _vm._v(" "),
+        _c("base-panel", { staticClass: " mt-4" }, [
+          _c(
+            "div",
+            { staticClass: "flex" },
+            _vm._l(_vm.categories, function(category) {
+              return _c(
+                "button",
+                {
+                  key: category.id,
+                  staticClass:
+                    "mx-1 bg-gray-800 text-xs text-white px-2 py-1 font-semibold rounded uppercase hover:bg-gray-700"
+                },
+                [
+                  _vm._v(
+                    "\n                    " +
+                      _vm._s(category.name) +
+                      "\n                "
+                  )
+                ]
+              )
+            }),
+            0
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "flex" },
+            _vm._l(_vm.sub_categories, function(sub_category) {
+              return _c(
+                "button",
+                {
+                  key: sub_category.id,
+                  staticClass:
+                    "mx-1 my-1 bg-gray-800 text-xs text-white px-2 py-1 font-semibold rounded uppercase hover:bg-gray-700"
+                },
+                [
+                  _vm._v(
+                    "\n                    " +
+                      _vm._s(sub_category.name) +
+                      "\n                "
+                  )
+                ]
+              )
+            }),
+            0
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "grid grid-cols-1 sm:grid-cols-3 gap-6" },
+            _vm._l(_vm.products, function(product) {
+              return _c(
+                "div",
+                {
+                  key: product.id,
+                  staticClass:
+                    "mt-4 flex flex-col justify-center items-center max-w-sm mx-auto"
+                },
+                [
+                  _c("div", [
+                    _c("img", {
+                      staticClass:
+                        "bg-gray-300 h-64 w-full rounded-lg shadow-md bg-cover bg-center",
+                      attrs: { src: product.image }
+                    })
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    {
+                      staticClass:
+                        "w-56 md:w-64 bg-white -mt-10 shadow-lg rounded-lg overflow-hidden"
+                    },
+                    [
+                      _c(
+                        "h3",
+                        {
+                          staticClass:
+                            "py-2 text-center font-bold uppercase tracking-wide text-gray-800"
+                        },
+                        [
+                          _vm._v(
+                            _vm._s(product.name) +
+                              "\n                            "
+                          )
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "p",
+                        {
+                          staticClass:
+                            "py-2 text-center font-bold uppercase tracking-wide text-gray-800"
+                        },
+                        [_vm._v("الوزن : " + _vm._s(product.weight))]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        {
+                          staticClass:
+                            "flex items-center justify-between py-2 px-3 bg-gray-200"
+                        },
+                        [
+                          _c(
+                            "span",
+                            { staticClass: "text-gray-800 font-bold " },
+                            [_vm._v("SDG " + _vm._s(product.total_price))]
+                          ),
+                          _vm._v(" "),
+                          _c("div", [
+                            _c(
+                              "button",
+                              {
+                                staticClass:
+                                  " bg-gray-800 text-xs text-white px-2 py-1 font-semibold rounded uppercase hover:bg-gray-700"
+                              },
+                              [
+                                _vm._v(
+                                  "\n                                        +\n                                    "
+                                )
+                              ]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "button",
+                              {
+                                staticClass:
+                                  " bg-gray-800 text-xs text-white px-2 py-1 font-semibold rounded uppercase hover:bg-gray-700"
+                              },
+                              [
+                                _vm._v(
+                                  "\n                                        0\n                                    "
+                                )
+                              ]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "button",
+                              {
+                                staticClass:
+                                  " bg-gray-800 text-xs text-white px-2 py-1 font-semibold rounded uppercase hover:bg-gray-700"
+                              },
+                              [
+                                _vm._v(
+                                  "\n                                        -\n                                    "
+                                )
+                              ]
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _c("div", [
+                            _c(
+                              "button",
+                              {
+                                staticClass:
+                                  " bg-gray-800 text-xs text-white px-2 py-1 font-semibold rounded uppercase hover:bg-gray-700",
+                                on: {
+                                  click: function($event) {
+                                    return _vm.addToCart(product.id)
+                                  }
+                                }
+                              },
+                              [
+                                _vm._v(
+                                  "\n                                        Add to cart\n                                    "
+                                )
+                              ]
+                            )
+                          ])
+                        ]
+                      )
+                    ]
+                  )
+                ]
+              )
+            }),
+            0
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "flex justify-end mt-4" },
+            [
+              _c("base-button", { attrs: { primary: "" } }, [
+                _vm._v("أنشاء طلب")
+              ])
+            ],
+            1
+          )
+        ])
+      ],
+      1
+    )
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/Pages/Dashboard/orders/edit.vue?vue&type=template&id=e6bb6cc0&":
+/*!*******************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/Pages/Dashboard/orders/edit.vue?vue&type=template&id=e6bb6cc0& ***!
+  \*******************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("layout", [
+    _c(
+      "div",
+      { staticClass: "mt-8" },
+      [
+        _c("div", { staticClass: "flex" }, [
+          _c("h2", { staticClass: "text-3xl text-indigo-500 font-bold" }, [
+            _vm._v("المنتجات /"),
+            _c("span", { staticClass: "text-gray-700" }, [_vm._v(" تعديل")])
+          ])
+        ]),
+        _vm._v(" "),
+        _c("base-panel", { staticClass: "flex mt-4 justify-center" }, [
+          _c("img", { staticClass: "w-2/6", attrs: { src: this.image } })
+        ]),
+        _vm._v(" "),
+        _c("base-panel", { staticClass: "mt-4" }, [
+          _c(
+            "form",
+            {
+              on: {
+                submit: function($event) {
+                  $event.preventDefault()
+                  return _vm.submit($event)
+                }
+              }
+            },
             [
               _c(
                 "div",
-                {
-                  staticClass:
-                    "align-middle inline-block min-w-full shadow overflow-hidden sm:rounded-lg border-b border-gray-200"
-                },
+                { staticClass: "grid grid-cols-1 sm:grid-cols-2 gap-6" },
                 [
-                  _c("table", { staticClass: "min-w-full" }, [
-                    _c("thead", { staticClass: "bg-gray-100" }, [
-                      _c("tr", [
-                        _c(
-                          "th",
-                          {
-                            staticClass:
-                              "px-6 py-3 border-b border-gray-200 bg-gray-50 text-right text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider",
-                            staticStyle: { "text-align": "start" }
+                  _c(
+                    "div",
+                    [
+                      _c("base-input", {
+                        attrs: {
+                          label: "أسم المنتج",
+                          name: "name",
+                          error: _vm.$page.errors.name,
+                          required: ""
+                        },
+                        model: {
+                          value: _vm.form.name,
+                          callback: function($$v) {
+                            _vm.$set(_vm.form, "name", $$v)
                           },
-                          [
-                            _vm._v(
-                              "\n                                    الأسم\n                                "
-                            )
-                          ]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "th",
-                          {
-                            staticClass:
-                              "px-6 py-3 border-b border-gray-200 bg-gray-50 text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider",
-                            staticStyle: { "text-align": "start" }
+                          expression: "form.name"
+                        }
+                      })
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    [
+                      _c("base-input", {
+                        attrs: {
+                          label: "الوزن",
+                          name: "weight",
+                          error: _vm.$page.errors.weight,
+                          required: ""
+                        },
+                        model: {
+                          value: _vm.form.weight,
+                          callback: function($$v) {
+                            _vm.$set(_vm.form, "weight", $$v)
                           },
-                          [
-                            _vm._v(
-                              "\n                                    عمولة الأدمن\n                                "
-                            )
-                          ]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "th",
-                          {
-                            staticClass:
-                              "px-6 py-3 border-b border-gray-200 bg-gray-50 text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider",
-                            staticStyle: { "text-align": "start" }
-                          },
-                          [
-                            _vm._v(
-                              "\n                                    عمولة المسوق\n                                "
-                            )
-                          ]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "th",
-                          {
-                            staticClass:
-                              "px-6 py-3 border-b border-gray-200 bg-gray-50 text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider",
-                            staticStyle: { "text-align": "start" }
-                          },
-                          [
-                            _vm._v(
-                              "\n                                     سعر التغليف\n                                "
-                            )
-                          ]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "th",
-                          {
-                            staticClass:
-                              "px-6 py-3 border-b border-gray-200 bg-gray-50 text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider",
-                            staticStyle: { "text-align": "start" }
-                          },
-                          [
-                            _vm._v(
-                              "\n                                     سعر الجرام\n                                "
-                            )
-                          ]
-                        ),
-                        _vm._v(" "),
-                        _c("th", {
-                          staticClass:
-                            "px-6 py-3 border-b border-gray-200 bg-gray-50"
-                        })
+                          expression: "form.weight"
+                        }
+                      })
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c("div", [
+                    _c("label", { staticClass: "block" }, [
+                      _c("span", { staticClass: "text-gray-700" }, [
+                        _vm._v("التصنيف الرئيسي")
                       ])
                     ]),
                     _vm._v(" "),
                     _c(
-                      "tbody",
-                      { staticClass: "bg-white text-gray-700" },
+                      "select",
+                      {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.form.category_id,
+                            expression: "form.category_id"
+                          }
+                        ],
+                        staticClass:
+                          "form-input border-gray-300 focus:border-indigo-400 focus:shadow-none focus:bg-white mt-1 block w-full",
+                        attrs: { name: "category_id", required: "" },
+                        on: {
+                          change: [
+                            function($event) {
+                              var $$selectedVal = Array.prototype.filter
+                                .call($event.target.options, function(o) {
+                                  return o.selected
+                                })
+                                .map(function(o) {
+                                  var val = "_value" in o ? o._value : o.value
+                                  return val
+                                })
+                              _vm.$set(
+                                _vm.form,
+                                "category_id",
+                                $event.target.multiple
+                                  ? $$selectedVal
+                                  : $$selectedVal[0]
+                              )
+                            },
+                            function($event) {
+                              return _vm.getSubcategoreis(_vm.form.category_id)
+                            }
+                          ]
+                        }
+                      },
                       _vm._l(_vm.categories, function(category) {
-                        return _c("tr", [
-                          _c(
-                            "td",
-                            {
-                              staticClass:
-                                "px-6 py-4 whitespace-no-wrap border-b border-gray-200"
-                            },
-                            [
-                              _vm._v(
-                                "\n                                    " +
-                                  _vm._s(category.name) +
-                                  "\n                                "
-                              )
-                            ]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "td",
-                            {
-                              staticClass:
-                                "px-6 py-4 whitespace-no-wrap border-b border-gray-200"
-                            },
-                            [
-                              _vm._v(
-                                "\n                                    " +
-                                  _vm._s(category.admin_commission) +
-                                  "\n                                "
-                              )
-                            ]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "td",
-                            {
-                              staticClass:
-                                "px-6 py-4 whitespace-no-wrap border-b border-gray-200"
-                            },
-                            [
-                              _vm._v(
-                                "\n                                    " +
-                                  _vm._s(category.marketer_commission) +
-                                  "\n                                "
-                              )
-                            ]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "td",
-                            {
-                              staticClass:
-                                "px-6 py-4 whitespace-no-wrap border-b border-gray-200"
-                            },
-                            [
-                              _vm._v(
-                                "\n                                    " +
-                                  _vm._s(category.package_price) +
-                                  "\n                                "
-                              )
-                            ]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "td",
-                            {
-                              staticClass:
-                                "px-6 py-4 whitespace-no-wrap border-b border-gray-200"
-                            },
-                            [
-                              _vm._v(
-                                "\n                                    " +
-                                  _vm._s(category.gram_price) +
-                                  "\n                                "
-                              )
-                            ]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "td",
-                            {
-                              staticClass:
-                                "px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 font-medium"
-                            },
-                            [
-                              _c(
-                                "inertia-link",
-                                {
-                                  staticClass:
-                                    "text-indigo-600 hover:text-indigo-900",
-                                  attrs: {
-                                    href:
-                                      "/dashboard/categories/" +
-                                      category.id +
-                                      "/edit"
-                                  }
-                                },
-                                [_vm._v("تعديل")]
-                              )
-                            ],
-                            1
-                          )
-                        ])
+                        return _c(
+                          "option",
+                          {
+                            key: category.id,
+                            domProps: { value: category.id }
+                          },
+                          [
+                            _vm._v(
+                              "\n                                " +
+                                _vm._s(category.name) +
+                                "\n                            "
+                            )
+                          ]
+                        )
                       }),
                       0
-                    )
+                    ),
+                    _vm._v(" "),
+                    _vm.$page.errors.category_id
+                      ? _c(
+                          "span",
+                          { staticClass: "text-red-500 text-xs mt-4" },
+                          [
+                            _vm._v(
+                              _vm._s(_vm.$page.errors.category_id[0]) +
+                                "\n                        "
+                            )
+                          ]
+                        )
+                      : _vm._e()
+                  ]),
+                  _vm._v(" "),
+                  _c("div", [
+                    _c("label", { staticClass: "block" }, [
+                      _c("span", { staticClass: "text-gray-700" }, [
+                        _vm._v("التصنيف الفرعي")
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "select",
+                      {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.form.subcategory_id,
+                            expression: "form.subcategory_id"
+                          }
+                        ],
+                        staticClass:
+                          "form-input border-gray-300 focus:border-indigo-400 focus:shadow-none focus:bg-white mt-1 block w-full",
+                        attrs: { name: "subcategory_id" },
+                        on: {
+                          change: function($event) {
+                            var $$selectedVal = Array.prototype.filter
+                              .call($event.target.options, function(o) {
+                                return o.selected
+                              })
+                              .map(function(o) {
+                                var val = "_value" in o ? o._value : o.value
+                                return val
+                              })
+                            _vm.$set(
+                              _vm.form,
+                              "subcategory_id",
+                              $event.target.multiple
+                                ? $$selectedVal
+                                : $$selectedVal[0]
+                            )
+                          }
+                        }
+                      },
+                      [
+                        _c("option"),
+                        _vm._v(" "),
+                        _vm._l(_vm.subcategories, function(subcategory) {
+                          return _c(
+                            "option",
+                            {
+                              key: subcategory.id,
+                              domProps: { value: subcategory.id }
+                            },
+                            [
+                              _vm._v(
+                                "\n                                " +
+                                  _vm._s(subcategory.name) +
+                                  "\n                            "
+                              )
+                            ]
+                          )
+                        })
+                      ],
+                      2
+                    ),
+                    _vm._v(" "),
+                    _vm.$page.errors.subcategory_id
+                      ? _c(
+                          "span",
+                          { staticClass: "text-red-500 text-xs mt-4" },
+                          [
+                            _vm._v(
+                              _vm._s(_vm.$page.errors.subcategory_id[0]) +
+                                "\n                        "
+                            )
+                          ]
+                        )
+                      : _vm._e()
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    [
+                      _c("base-input", {
+                        attrs: {
+                          label: "القيمة المضافة",
+                          name: "added_value",
+                          error: _vm.$page.errors.added_value,
+                          required: ""
+                        },
+                        model: {
+                          value: _vm.form.added_value,
+                          callback: function($$v) {
+                            _vm.$set(_vm.form, "added_value", $$v)
+                          },
+                          expression: "form.added_value"
+                        }
+                      })
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    [
+                      _c("base-input", {
+                        attrs: {
+                          label: "القيمة المخصومة",
+                          name: "deducted_value",
+                          error: _vm.$page.errors.deducted_value,
+                          required: ""
+                        },
+                        model: {
+                          value: _vm.form.deducted_value,
+                          callback: function($$v) {
+                            _vm.$set(_vm.form, "deducted_value", $$v)
+                          },
+                          expression: "form.deducted_value"
+                        }
+                      })
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    [
+                      _c("base-input", {
+                        attrs: {
+                          label: "الرمز",
+                          name: "code",
+                          error: _vm.$page.errors.code,
+                          required: ""
+                        },
+                        model: {
+                          value: _vm.form.code,
+                          callback: function($$v) {
+                            _vm.$set(_vm.form, "code", $$v)
+                          },
+                          expression: "form.code"
+                        }
+                      })
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    [
+                      _c("base-input", {
+                        attrs: {
+                          type: "number",
+                          label: "الكمية",
+                          name: "stock",
+                          error: _vm.$page.errors.stock,
+                          required: ""
+                        },
+                        model: {
+                          value: _vm.form.stock,
+                          callback: function($$v) {
+                            _vm.$set(_vm.form, "stock", $$v)
+                          },
+                          expression: "form.stock"
+                        }
+                      })
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c("div", [
+                    _c("label", { staticClass: "block" }, [
+                      _c("span", { staticClass: "text-gray-700" }, [
+                        _vm._v("الصورة")
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("input", {
+                      attrs: { type: "file", name: "image", id: "image" },
+                      on: {
+                        change: function($event) {
+                          return _vm.uploadFile($event)
+                        }
+                      }
+                    }),
+                    _vm._v(" "),
+                    _vm.$page.errors.image
+                      ? _c(
+                          "span",
+                          { staticClass: "text-red-500 text-xs mt-4" },
+                          [
+                            _vm._v(
+                              _vm._s(_vm.$page.errors.image[0]) +
+                                "\n                        "
+                            )
+                          ]
+                        )
+                      : _vm._e()
                   ])
                 ]
+              ),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "flex justify-end mt-4" },
+                [
+                  _c("base-button", { attrs: { primary: "" } }, [
+                    _vm._v("تعديل المنتج")
+                  ])
+                ],
+                1
               )
             ]
           )
         ])
-      ])
-    ])
+      ],
+      1
+    )
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/Pages/Dashboard/orders/index.vue?vue&type=template&id=495ea42c&":
+/*!********************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/Pages/Dashboard/orders/index.vue?vue&type=template&id=495ea42c& ***!
+  \********************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("layout", [
+    _c(
+      "div",
+      { staticClass: "mt-8" },
+      [
+        _c("div", { staticClass: "flex justify-between" }, [
+          _c("h2", { staticClass: "text-3xl text-gray-700 font-bold" }, [
+            _vm._v("خدمة العملاء")
+          ]),
+          _vm._v(" "),
+          _c(
+            "div",
+            [
+              _c(
+                "inertia-link",
+                {
+                  staticClass:
+                    "px-4 py-2 bg-indigo-500 hover:bg-indigo-600 text-white font-medium rounded",
+                  attrs: { href: "/dashboard/products/create" }
+                },
+                [_vm._v("\n                    أنشاء طلب\n                ")]
+              )
+            ],
+            1
+          )
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "mt-4" }, [
+          _c("div", { staticClass: "flex flex-col" }, [
+            _c(
+              "div",
+              { staticClass: "-my-2 py-2 overflow-x-auto sm:-mx-6 sm:px-6" },
+              [
+                _c(
+                  "div",
+                  {
+                    staticClass:
+                      "align-middle inline-block min-w-full shadow overflow-hidden sm:rounded-lg border-b border-gray-200"
+                  },
+                  [
+                    _c("table", { staticClass: "min-w-full" }, [
+                      _c("thead", { staticClass: "bg-gray-100" }, [
+                        _c("tr", [
+                          _c(
+                            "th",
+                            {
+                              staticClass:
+                                "px-6 py-3 border-b border-gray-200 bg-gray-50 text-right text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider",
+                              staticStyle: { "text-align": "start" }
+                            },
+                            [
+                              _vm._v(
+                                "\n                                    رقم العميل\n                                "
+                              )
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "th",
+                            {
+                              staticClass:
+                                "px-6 py-3 border-b border-gray-200 bg-gray-50 text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider",
+                              staticStyle: { "text-align": "start" }
+                            },
+                            [
+                              _vm._v(
+                                "\n                                    رقم العميل الأضافي\n                                "
+                              )
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "th",
+                            {
+                              staticClass:
+                                "px-6 py-3 border-b border-gray-200 bg-gray-50 text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider",
+                              staticStyle: { "text-align": "start" }
+                            },
+                            [
+                              _vm._v(
+                                "\n                                    عنوان العميل\n                                "
+                              )
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "th",
+                            {
+                              staticClass:
+                                "px-6 py-3 border-b border-gray-200 bg-gray-50 text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider",
+                              staticStyle: { "text-align": "start" }
+                            },
+                            [
+                              _vm._v(
+                                "\n                                     الرمز\n                                "
+                              )
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "th",
+                            {
+                              staticClass:
+                                "px-6 py-3 border-b border-gray-200 bg-gray-50 text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider",
+                              staticStyle: { "text-align": "start" }
+                            },
+                            [
+                              _vm._v(
+                                "\n                                     السعر الكلى\n                                "
+                              )
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "th",
+                            {
+                              staticClass:
+                                "px-6 py-3 border-b border-gray-200 bg-gray-50 text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider",
+                              staticStyle: { "text-align": "start" }
+                            },
+                            [
+                              _vm._v(
+                                "\n                                     الكمية\n                                "
+                              )
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c("th", {
+                            staticClass:
+                              "px-6 py-3 border-b border-gray-200 bg-gray-50"
+                          })
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "tbody",
+                        { staticClass: "bg-white text-gray-700" },
+                        _vm._l(_vm.products.data, function(product) {
+                          return _c("tr", { key: product.id }, [
+                            _c(
+                              "td",
+                              {
+                                staticClass:
+                                  "px-6 py-4 whitespace-no-wrap border-b border-gray-200"
+                              },
+                              [
+                                _vm._v(
+                                  "\n                                    " +
+                                    _vm._s(product.name) +
+                                    "\n                                "
+                                )
+                              ]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "td",
+                              {
+                                staticClass:
+                                  "px-6 py-4 whitespace-no-wrap border-b border-gray-200"
+                              },
+                              [
+                                _vm._v(
+                                  "\n                                    " +
+                                    _vm._s(product.category.name) +
+                                    "\n                                "
+                                )
+                              ]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "td",
+                              {
+                                staticClass:
+                                  "px-6 py-4 whitespace-no-wrap border-b border-gray-200"
+                              },
+                              [
+                                product.subcategory
+                                  ? _c("p", [
+                                      _vm._v(
+                                        "\n                                    " +
+                                          _vm._s(product.subcategory.name) +
+                                          "\n                                    "
+                                      )
+                                    ])
+                                  : _vm._e()
+                              ]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "td",
+                              {
+                                staticClass:
+                                  "px-6 py-4 whitespace-no-wrap border-b border-gray-200"
+                              },
+                              [
+                                _vm._v(
+                                  "\n                                    " +
+                                    _vm._s(product.code) +
+                                    "\n                                "
+                                )
+                              ]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "td",
+                              {
+                                staticClass:
+                                  "px-6 py-4 whitespace-no-wrap border-b border-gray-200"
+                              },
+                              [
+                                _vm._v(
+                                  "\n                                    " +
+                                    _vm._s(product.total_price) +
+                                    "\n                                "
+                                )
+                              ]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "td",
+                              {
+                                staticClass:
+                                  "px-6 py-4 whitespace-no-wrap border-b border-gray-200"
+                              },
+                              [
+                                _vm._v(
+                                  "\n                                    " +
+                                    _vm._s(product.stock) +
+                                    "\n                                "
+                                )
+                              ]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "td",
+                              {
+                                staticClass:
+                                  "px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 font-medium"
+                              },
+                              [
+                                _c(
+                                  "inertia-link",
+                                  {
+                                    staticClass:
+                                      "text-indigo-600 hover:text-indigo-900",
+                                    attrs: {
+                                      href:
+                                        "/dashboard/products/" +
+                                        product.id +
+                                        "/edit"
+                                    }
+                                  },
+                                  [_vm._v("تعديل")]
+                                )
+                              ],
+                              1
+                            )
+                          ])
+                        }),
+                        0
+                      )
+                    ])
+                  ]
+                )
+              ]
+            )
+          ])
+        ]),
+        _vm._v(" "),
+        _c("pagination", {
+          staticClass: "mt-5",
+          attrs: { links: _vm.products.links }
+        })
+      ],
+      1
+    )
   ])
 }
 var staticRenderFns = []
@@ -7821,7 +9282,6 @@ var render = function() {
                     [
                       _c("base-input", {
                         attrs: {
-                          type: "number",
                           label: "الوزن",
                           name: "weight",
                           error: _vm.$page.errors.weight,
@@ -7888,7 +9348,10 @@ var render = function() {
                       _vm._l(_vm.categories, function(category) {
                         return _c(
                           "option",
-                          { domProps: { value: category.id } },
+                          {
+                            key: category.id,
+                            domProps: { value: category.id }
+                          },
                           [
                             _vm._v(
                               "\n                                " +
@@ -7962,7 +9425,10 @@ var render = function() {
                         _vm._l(_vm.subcategories, function(subcategory) {
                           return _c(
                             "option",
-                            { domProps: { value: subcategory.id } },
+                            {
+                              key: subcategory.id,
+                              domProps: { value: subcategory.id }
+                            },
                             [
                               _vm._v(
                                 "\n                                " +
@@ -7995,7 +9461,6 @@ var render = function() {
                     [
                       _c("base-input", {
                         attrs: {
-                          type: "number",
                           label: "القيمة المضافة",
                           name: "added_value",
                           error: _vm.$page.errors.added_value,
@@ -8018,7 +9483,6 @@ var render = function() {
                     [
                       _c("base-input", {
                         attrs: {
-                          type: "number",
                           label: "القيمة المخصومة",
                           name: "deducted_value",
                           error: _vm.$page.errors.deducted_value,
@@ -8170,6 +9634,10 @@ var render = function() {
           ])
         ]),
         _vm._v(" "),
+        _c("base-panel", { staticClass: "flex mt-4 justify-center" }, [
+          _c("img", { staticClass: "w-2/6", attrs: { src: this.image } })
+        ]),
+        _vm._v(" "),
         _c("base-panel", { staticClass: "mt-4" }, [
           _c(
             "form",
@@ -8213,7 +9681,6 @@ var render = function() {
                     [
                       _c("base-input", {
                         attrs: {
-                          type: "number",
                           label: "الوزن",
                           name: "weight",
                           error: _vm.$page.errors.weight,
@@ -8280,7 +9747,10 @@ var render = function() {
                       _vm._l(_vm.categories, function(category) {
                         return _c(
                           "option",
-                          { domProps: { value: category.id } },
+                          {
+                            key: category.id,
+                            domProps: { value: category.id }
+                          },
                           [
                             _vm._v(
                               "\n                                " +
@@ -8354,7 +9824,10 @@ var render = function() {
                         _vm._l(_vm.subcategories, function(subcategory) {
                           return _c(
                             "option",
-                            { domProps: { value: subcategory.id } },
+                            {
+                              key: subcategory.id,
+                              domProps: { value: subcategory.id }
+                            },
                             [
                               _vm._v(
                                 "\n                                " +
@@ -8387,7 +9860,6 @@ var render = function() {
                     [
                       _c("base-input", {
                         attrs: {
-                          type: "number",
                           label: "القيمة المضافة",
                           name: "added_value",
                           error: _vm.$page.errors.added_value,
@@ -8410,7 +9882,6 @@ var render = function() {
                     [
                       _c("base-input", {
                         attrs: {
-                          type: "number",
                           label: "القيمة المخصومة",
                           name: "deducted_value",
                           error: _vm.$page.errors.deducted_value,
@@ -8501,13 +9972,6 @@ var render = function() {
                           ]
                         )
                       : _vm._e()
-                  ]),
-                  _vm._v(" "),
-                  _c("div", [
-                    _c("img", {
-                      staticClass: "w-1/2",
-                      attrs: { src: this.image }
-                    })
                   ])
                 ]
               ),
@@ -8553,271 +10017,281 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("layout", [
-    _c("div", { staticClass: "mt-8" }, [
-      _c("div", { staticClass: "flex justify-between" }, [
-        _c("h2", { staticClass: "text-3xl text-gray-700 font-bold" }, [
-          _vm._v("المنتجات")
-        ]),
-        _vm._v(" "),
-        _c(
-          "div",
-          [
-            _c(
-              "inertia-link",
-              {
-                staticClass:
-                  "px-4 py-2 bg-indigo-500 hover:bg-indigo-600 text-white font-medium rounded",
-                attrs: { href: "/dashboard/products/create" }
-              },
-              [_vm._v("\n                    أنشاء منتج\n                ")]
-            )
-          ],
-          1
-        )
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "mt-4" }, [
-        _c("div", { staticClass: "flex flex-col" }, [
+    _c(
+      "div",
+      { staticClass: "mt-8" },
+      [
+        _c("div", { staticClass: "flex justify-between" }, [
+          _c("h2", { staticClass: "text-3xl text-gray-700 font-bold" }, [
+            _vm._v("المنتجات")
+          ]),
+          _vm._v(" "),
           _c(
             "div",
-            { staticClass: "-my-2 py-2 overflow-x-auto sm:-mx-6 sm:px-6" },
             [
               _c(
-                "div",
+                "inertia-link",
                 {
                   staticClass:
-                    "align-middle inline-block min-w-full shadow overflow-hidden sm:rounded-lg border-b border-gray-200"
+                    "px-4 py-2 bg-indigo-500 hover:bg-indigo-600 text-white font-medium rounded",
+                  attrs: { href: "/dashboard/products/create" }
                 },
-                [
-                  _c("table", { staticClass: "min-w-full" }, [
-                    _c("thead", { staticClass: "bg-gray-100" }, [
-                      _c("tr", [
-                        _c(
-                          "th",
-                          {
-                            staticClass:
-                              "px-6 py-3 border-b border-gray-200 bg-gray-50 text-right text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider",
-                            staticStyle: { "text-align": "start" }
-                          },
-                          [
-                            _vm._v(
-                              "\n                                    أسم المنتج\n                                "
-                            )
-                          ]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "th",
-                          {
-                            staticClass:
-                              "px-6 py-3 border-b border-gray-200 bg-gray-50 text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider",
-                            staticStyle: { "text-align": "start" }
-                          },
-                          [
-                            _vm._v(
-                              "\n                                    التصنيف الرئيسي\n                                "
-                            )
-                          ]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "th",
-                          {
-                            staticClass:
-                              "px-6 py-3 border-b border-gray-200 bg-gray-50 text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider",
-                            staticStyle: { "text-align": "start" }
-                          },
-                          [
-                            _vm._v(
-                              "\n                                    التصنيف الفرعي\n                                "
-                            )
-                          ]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "th",
-                          {
-                            staticClass:
-                              "px-6 py-3 border-b border-gray-200 bg-gray-50 text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider",
-                            staticStyle: { "text-align": "start" }
-                          },
-                          [
-                            _vm._v(
-                              "\n                                     الرمز\n                                "
-                            )
-                          ]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "th",
-                          {
-                            staticClass:
-                              "px-6 py-3 border-b border-gray-200 bg-gray-50 text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider",
-                            staticStyle: { "text-align": "start" }
-                          },
-                          [
-                            _vm._v(
-                              "\n                                     السعر الكلى\n                                "
-                            )
-                          ]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "th",
-                          {
-                            staticClass:
-                              "px-6 py-3 border-b border-gray-200 bg-gray-50 text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider",
-                            staticStyle: { "text-align": "start" }
-                          },
-                          [
-                            _vm._v(
-                              "\n                                     الكمية\n                                "
-                            )
-                          ]
-                        ),
-                        _vm._v(" "),
-                        _c("th", {
-                          staticClass:
-                            "px-6 py-3 border-b border-gray-200 bg-gray-50"
-                        })
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c(
-                      "tbody",
-                      { staticClass: "bg-white text-gray-700" },
-                      _vm._l(_vm.products, function(product) {
-                        return _c("tr", [
-                          _c(
-                            "td",
-                            {
-                              staticClass:
-                                "px-6 py-4 whitespace-no-wrap border-b border-gray-200"
-                            },
-                            [
-                              _vm._v(
-                                "\n                                    " +
-                                  _vm._s(product.name) +
-                                  "\n                                "
-                              )
-                            ]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "td",
-                            {
-                              staticClass:
-                                "px-6 py-4 whitespace-no-wrap border-b border-gray-200"
-                            },
-                            [
-                              _vm._v(
-                                "\n                                    " +
-                                  _vm._s(product.category.name) +
-                                  "\n                                "
-                              )
-                            ]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "td",
-                            {
-                              staticClass:
-                                "px-6 py-4 whitespace-no-wrap border-b border-gray-200"
-                            },
-                            [
-                              product.subcategory
-                                ? _c("p", [
-                                    _vm._v(
-                                      "\n                                    " +
-                                        _vm._s(product.subcategory.name) +
-                                        "\n                                    "
-                                    )
-                                  ])
-                                : _vm._e()
-                            ]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "td",
-                            {
-                              staticClass:
-                                "px-6 py-4 whitespace-no-wrap border-b border-gray-200"
-                            },
-                            [
-                              _vm._v(
-                                "\n                                    " +
-                                  _vm._s(product.code) +
-                                  "\n                                "
-                              )
-                            ]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "td",
-                            {
-                              staticClass:
-                                "px-6 py-4 whitespace-no-wrap border-b border-gray-200"
-                            },
-                            [
-                              _vm._v(
-                                "\n                                    " +
-                                  _vm._s(product.total_price) +
-                                  "\n                                "
-                              )
-                            ]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "td",
-                            {
-                              staticClass:
-                                "px-6 py-4 whitespace-no-wrap border-b border-gray-200"
-                            },
-                            [
-                              _vm._v(
-                                "\n                                    " +
-                                  _vm._s(product.stock) +
-                                  "\n                                "
-                              )
-                            ]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "td",
-                            {
-                              staticClass:
-                                "px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 font-medium"
-                            },
-                            [
-                              _c(
-                                "inertia-link",
-                                {
-                                  staticClass:
-                                    "text-indigo-600 hover:text-indigo-900",
-                                  attrs: {
-                                    href:
-                                      "/dashboard/products/" +
-                                      product.id +
-                                      "/edit"
-                                  }
-                                },
-                                [_vm._v("تعديل")]
-                              )
-                            ],
-                            1
-                          )
-                        ])
-                      }),
-                      0
-                    )
-                  ])
-                ]
+                [_vm._v("\n                    أنشاء منتج\n                ")]
               )
-            ]
+            ],
+            1
           )
-        ])
-      ])
-    ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "mt-4" }, [
+          _c("div", { staticClass: "flex flex-col" }, [
+            _c(
+              "div",
+              { staticClass: "-my-2 py-2 overflow-x-auto sm:-mx-6 sm:px-6" },
+              [
+                _c(
+                  "div",
+                  {
+                    staticClass:
+                      "align-middle inline-block min-w-full shadow overflow-hidden sm:rounded-lg border-b border-gray-200"
+                  },
+                  [
+                    _c("table", { staticClass: "min-w-full" }, [
+                      _c("thead", { staticClass: "bg-gray-100" }, [
+                        _c("tr", [
+                          _c(
+                            "th",
+                            {
+                              staticClass:
+                                "px-6 py-3 border-b border-gray-200 bg-gray-50 text-right text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider",
+                              staticStyle: { "text-align": "start" }
+                            },
+                            [
+                              _vm._v(
+                                "\n                                    أسم المنتج\n                                "
+                              )
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "th",
+                            {
+                              staticClass:
+                                "px-6 py-3 border-b border-gray-200 bg-gray-50 text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider",
+                              staticStyle: { "text-align": "start" }
+                            },
+                            [
+                              _vm._v(
+                                "\n                                    التصنيف الرئيسي\n                                "
+                              )
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "th",
+                            {
+                              staticClass:
+                                "px-6 py-3 border-b border-gray-200 bg-gray-50 text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider",
+                              staticStyle: { "text-align": "start" }
+                            },
+                            [
+                              _vm._v(
+                                "\n                                    التصنيف الفرعي\n                                "
+                              )
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "th",
+                            {
+                              staticClass:
+                                "px-6 py-3 border-b border-gray-200 bg-gray-50 text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider",
+                              staticStyle: { "text-align": "start" }
+                            },
+                            [
+                              _vm._v(
+                                "\n                                     الرمز\n                                "
+                              )
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "th",
+                            {
+                              staticClass:
+                                "px-6 py-3 border-b border-gray-200 bg-gray-50 text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider",
+                              staticStyle: { "text-align": "start" }
+                            },
+                            [
+                              _vm._v(
+                                "\n                                     السعر الكلى\n                                "
+                              )
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "th",
+                            {
+                              staticClass:
+                                "px-6 py-3 border-b border-gray-200 bg-gray-50 text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider",
+                              staticStyle: { "text-align": "start" }
+                            },
+                            [
+                              _vm._v(
+                                "\n                                     الكمية\n                                "
+                              )
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c("th", {
+                            staticClass:
+                              "px-6 py-3 border-b border-gray-200 bg-gray-50"
+                          })
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "tbody",
+                        { staticClass: "bg-white text-gray-700" },
+                        _vm._l(_vm.products.data, function(product) {
+                          return _c("tr", { key: product.id }, [
+                            _c(
+                              "td",
+                              {
+                                staticClass:
+                                  "px-6 py-4 whitespace-no-wrap border-b border-gray-200"
+                              },
+                              [
+                                _vm._v(
+                                  "\n                                    " +
+                                    _vm._s(product.name) +
+                                    "\n                                "
+                                )
+                              ]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "td",
+                              {
+                                staticClass:
+                                  "px-6 py-4 whitespace-no-wrap border-b border-gray-200"
+                              },
+                              [
+                                _vm._v(
+                                  "\n                                    " +
+                                    _vm._s(product.category.name) +
+                                    "\n                                "
+                                )
+                              ]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "td",
+                              {
+                                staticClass:
+                                  "px-6 py-4 whitespace-no-wrap border-b border-gray-200"
+                              },
+                              [
+                                product.subcategory
+                                  ? _c("p", [
+                                      _vm._v(
+                                        "\n                                    " +
+                                          _vm._s(product.subcategory.name) +
+                                          "\n                                    "
+                                      )
+                                    ])
+                                  : _vm._e()
+                              ]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "td",
+                              {
+                                staticClass:
+                                  "px-6 py-4 whitespace-no-wrap border-b border-gray-200"
+                              },
+                              [
+                                _vm._v(
+                                  "\n                                    " +
+                                    _vm._s(product.code) +
+                                    "\n                                "
+                                )
+                              ]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "td",
+                              {
+                                staticClass:
+                                  "px-6 py-4 whitespace-no-wrap border-b border-gray-200"
+                              },
+                              [
+                                _vm._v(
+                                  "\n                                    " +
+                                    _vm._s(product.total_price) +
+                                    "\n                                "
+                                )
+                              ]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "td",
+                              {
+                                staticClass:
+                                  "px-6 py-4 whitespace-no-wrap border-b border-gray-200"
+                              },
+                              [
+                                _vm._v(
+                                  "\n                                    " +
+                                    _vm._s(product.stock) +
+                                    "\n                                "
+                                )
+                              ]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "td",
+                              {
+                                staticClass:
+                                  "px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 font-medium"
+                              },
+                              [
+                                _c(
+                                  "inertia-link",
+                                  {
+                                    staticClass:
+                                      "text-indigo-600 hover:text-indigo-900",
+                                    attrs: {
+                                      href:
+                                        "/dashboard/products/" +
+                                        product.id +
+                                        "/edit"
+                                    }
+                                  },
+                                  [_vm._v("تعديل")]
+                                )
+                              ],
+                              1
+                            )
+                          ])
+                        }),
+                        0
+                      )
+                    ])
+                  ]
+                )
+              ]
+            )
+          ])
+        ]),
+        _vm._v(" "),
+        _c("pagination", {
+          staticClass: "mt-5",
+          attrs: { links: _vm.products.links }
+        })
+      ],
+      1
+    )
   ])
 }
 var staticRenderFns = []
@@ -8914,7 +10388,10 @@ var render = function() {
                       _vm._l(_vm.categories, function(category) {
                         return _c(
                           "option",
-                          { domProps: { value: category.id } },
+                          {
+                            key: category.id,
+                            domProps: { value: category.id }
+                          },
                           [
                             _vm._v(
                               "\n                                " +
@@ -9077,7 +10554,10 @@ var render = function() {
                       _vm._l(_vm.categories, function(category) {
                         return _c(
                           "option",
-                          { domProps: { value: category.id } },
+                          {
+                            key: category.id,
+                            domProps: { value: category.id }
+                          },
                           [
                             _vm._v(
                               "\n                                " +
@@ -9164,155 +10644,165 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("layout", [
-    _c("div", { staticClass: "mt-8" }, [
-      _c("div", { staticClass: "flex justify-between" }, [
-        _c("h2", { staticClass: "text-3xl text-gray-700 font-bold" }, [
-          _vm._v("التصنيفات الفرعية")
+    _c(
+      "div",
+      { staticClass: "mt-8" },
+      [
+        _c("div", { staticClass: "flex justify-between" }, [
+          _c("h2", { staticClass: "text-3xl text-gray-700 font-bold" }, [
+            _vm._v("التصنيفات الفرعية")
+          ]),
+          _vm._v(" "),
+          _c(
+            "div",
+            [
+              _c(
+                "inertia-link",
+                {
+                  staticClass:
+                    "px-4 py-2 bg-indigo-500 hover:bg-indigo-600 text-white font-medium rounded",
+                  attrs: { href: "/dashboard/subcategories/create" }
+                },
+                [
+                  _vm._v(
+                    "\n                    أنشاء تصنيف فرعي\n                "
+                  )
+                ]
+              )
+            ],
+            1
+          )
         ]),
         _vm._v(" "),
-        _c(
-          "div",
-          [
+        _c("div", { staticClass: "mt-4" }, [
+          _c("div", { staticClass: "flex flex-col" }, [
             _c(
-              "inertia-link",
-              {
-                staticClass:
-                  "px-4 py-2 bg-indigo-500 hover:bg-indigo-600 text-white font-medium rounded",
-                attrs: { href: "/dashboard/subcategories/create" }
-              },
+              "div",
+              { staticClass: "-my-2 py-2 overflow-x-auto sm:-mx-6 sm:px-6" },
               [
-                _vm._v(
-                  "\n                    أنشاء تصنيف فرعي\n                "
+                _c(
+                  "div",
+                  {
+                    staticClass:
+                      "align-middle inline-block min-w-full shadow overflow-hidden sm:rounded-lg border-b border-gray-200"
+                  },
+                  [
+                    _c("table", { staticClass: "min-w-full" }, [
+                      _c("thead", { staticClass: "bg-gray-100" }, [
+                        _c("tr", [
+                          _c(
+                            "th",
+                            {
+                              staticClass:
+                                "px-6 py-3 border-b border-gray-200 bg-gray-50 text-right text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider",
+                              staticStyle: { "text-align": "start" }
+                            },
+                            [
+                              _vm._v(
+                                "\n                                        الأسم\n                                    "
+                              )
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "th",
+                            {
+                              staticClass:
+                                "px-6 py-3 border-b border-gray-200 bg-gray-50 text-right text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider",
+                              staticStyle: { "text-align": "start" }
+                            },
+                            [
+                              _vm._v(
+                                "\n                                        التصنيف\n                                    "
+                              )
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c("th", {
+                            staticClass:
+                              "px-6 py-3 border-b border-gray-200 bg-gray-50"
+                          })
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "tbody",
+                        { staticClass: "bg-white text-gray-700" },
+                        _vm._l(_vm.subcategories.data, function(subcategory) {
+                          return _c("tr", { key: subcategory }, [
+                            _c(
+                              "td",
+                              {
+                                staticClass:
+                                  "px-6 py-4 whitespace-no-wrap border-b border-gray-200"
+                              },
+                              [
+                                _vm._v(
+                                  "\n                                        " +
+                                    _vm._s(subcategory.name) +
+                                    "\n                                    "
+                                )
+                              ]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "td",
+                              {
+                                staticClass:
+                                  "px-6 py-4 whitespace-no-wrap border-b border-gray-200"
+                              },
+                              [
+                                _vm._v(
+                                  "\n                                        " +
+                                    _vm._s(subcategory.category.name) +
+                                    "\n                                    "
+                                )
+                              ]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "td",
+                              {
+                                staticClass:
+                                  "px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 font-medium"
+                              },
+                              [
+                                _c(
+                                  "inertia-link",
+                                  {
+                                    staticClass:
+                                      "text-indigo-600 hover:text-indigo-900",
+                                    attrs: {
+                                      href:
+                                        "/dashboard/subcategories/" +
+                                        subcategory.id +
+                                        "/edit"
+                                    }
+                                  },
+                                  [_vm._v("تعديل")]
+                                )
+                              ],
+                              1
+                            )
+                          ])
+                        }),
+                        0
+                      )
+                    ])
+                  ]
                 )
               ]
             )
-          ],
-          1
-        )
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "mt-4" }, [
-        _c("div", { staticClass: "flex flex-col" }, [
-          _c(
-            "div",
-            { staticClass: "-my-2 py-2 overflow-x-auto sm:-mx-6 sm:px-6" },
-            [
-              _c(
-                "div",
-                {
-                  staticClass:
-                    "align-middle inline-block min-w-full shadow overflow-hidden sm:rounded-lg border-b border-gray-200"
-                },
-                [
-                  _c("table", { staticClass: "min-w-full" }, [
-                    _c("thead", { staticClass: "bg-gray-100" }, [
-                      _c("tr", [
-                        _c(
-                          "th",
-                          {
-                            staticClass:
-                              "px-6 py-3 border-b border-gray-200 bg-gray-50 text-right text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider",
-                            staticStyle: { "text-align": "start" }
-                          },
-                          [
-                            _vm._v(
-                              "\n                                        الأسم\n                                    "
-                            )
-                          ]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "th",
-                          {
-                            staticClass:
-                              "px-6 py-3 border-b border-gray-200 bg-gray-50 text-right text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider",
-                            staticStyle: { "text-align": "start" }
-                          },
-                          [
-                            _vm._v(
-                              "\n                                        التصنيف\n                                    "
-                            )
-                          ]
-                        ),
-                        _vm._v(" "),
-                        _c("th", {
-                          staticClass:
-                            "px-6 py-3 border-b border-gray-200 bg-gray-50"
-                        })
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c(
-                      "tbody",
-                      { staticClass: "bg-white text-gray-700" },
-                      _vm._l(_vm.subcategories, function(subcategory) {
-                        return _c("tr", [
-                          _c(
-                            "td",
-                            {
-                              staticClass:
-                                "px-6 py-4 whitespace-no-wrap border-b border-gray-200"
-                            },
-                            [
-                              _vm._v(
-                                "\n                                        " +
-                                  _vm._s(subcategory.name) +
-                                  "\n                                    "
-                              )
-                            ]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "td",
-                            {
-                              staticClass:
-                                "px-6 py-4 whitespace-no-wrap border-b border-gray-200"
-                            },
-                            [
-                              _vm._v(
-                                "\n                                        " +
-                                  _vm._s(subcategory.category.name) +
-                                  "\n                                    "
-                              )
-                            ]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "td",
-                            {
-                              staticClass:
-                                "px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 font-medium"
-                            },
-                            [
-                              _c(
-                                "inertia-link",
-                                {
-                                  staticClass:
-                                    "text-indigo-600 hover:text-indigo-900",
-                                  attrs: {
-                                    href:
-                                      "/dashboard/subcategories/" +
-                                      subcategory.id +
-                                      "/edit"
-                                  }
-                                },
-                                [_vm._v("تعديل")]
-                              )
-                            ],
-                            1
-                          )
-                        ])
-                      }),
-                      0
-                    )
-                  ])
-                ]
-              )
-            ]
-          )
-        ])
-      ])
-    ])
+          ])
+        ]),
+        _vm._v(" "),
+        _c("pagination", {
+          staticClass: "mt-5",
+          attrs: { links: _vm.subcategories.links }
+        })
+      ],
+      1
+    )
   ])
 }
 var staticRenderFns = []
@@ -10048,7 +11538,7 @@ var render = function() {
                       _c(
                         "tbody",
                         { staticClass: "bg-white text-gray-700" },
-                        _vm._l(_vm.users, function(user) {
+                        _vm._l(_vm.users.data, function(user) {
                           return _c("tr", { key: user.id }, [
                             _c(
                               "td",
@@ -11172,7 +12662,42 @@ var render = function() {
                     ),
                     _vm._v(" "),
                     _c("span", { staticClass: "mx-2 text-gray-300" }, [
-                      _vm._v("Documents")
+                      _vm._v("الطلبات")
+                    ])
+                  ]
+                )
+              ]
+            ),
+            _vm._v(" "),
+            _c(
+              "li",
+              { staticClass: "px-2 py-3 hover:bg-gray-900 rounded mt-2" },
+              [
+                _c(
+                  "a",
+                  {
+                    staticClass: "flex items-center",
+                    attrs: { href: "/dashboard/orders/create" }
+                  },
+                  [
+                    _c(
+                      "svg",
+                      {
+                        staticClass: "phone text-gray-500 w-6 h-6",
+                        attrs: { viewBox: "0 0 20 20", fill: "currentColor" }
+                      },
+                      [
+                        _c("path", {
+                          attrs: {
+                            d:
+                              "M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"
+                          }
+                        })
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c("span", { staticClass: "mx-2 text-gray-300" }, [
+                      _vm._v("خدمة العملاء")
                     ])
                   ]
                 )
@@ -23508,6 +25033,14 @@ var map = {
 	"./Dashboard/categories/edit.vue": "./resources/js/Pages/Dashboard/categories/edit.vue",
 	"./Dashboard/categories/index": "./resources/js/Pages/Dashboard/categories/index.vue",
 	"./Dashboard/categories/index.vue": "./resources/js/Pages/Dashboard/categories/index.vue",
+	"./Dashboard/orders": "./resources/js/Pages/Dashboard/orders/index.vue",
+	"./Dashboard/orders/": "./resources/js/Pages/Dashboard/orders/index.vue",
+	"./Dashboard/orders/create": "./resources/js/Pages/Dashboard/orders/create.vue",
+	"./Dashboard/orders/create.vue": "./resources/js/Pages/Dashboard/orders/create.vue",
+	"./Dashboard/orders/edit": "./resources/js/Pages/Dashboard/orders/edit.vue",
+	"./Dashboard/orders/edit.vue": "./resources/js/Pages/Dashboard/orders/edit.vue",
+	"./Dashboard/orders/index": "./resources/js/Pages/Dashboard/orders/index.vue",
+	"./Dashboard/orders/index.vue": "./resources/js/Pages/Dashboard/orders/index.vue",
 	"./Dashboard/products": "./resources/js/Pages/Dashboard/products/index.vue",
 	"./Dashboard/products/": "./resources/js/Pages/Dashboard/products/index.vue",
 	"./Dashboard/products/create": "./resources/js/Pages/Dashboard/products/create.vue",
@@ -23896,6 +25429,213 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_template_id_bffdceba___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_template_id_bffdceba___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/Pages/Dashboard/orders/create.vue":
+/*!********************************************************!*\
+  !*** ./resources/js/Pages/Dashboard/orders/create.vue ***!
+  \********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _create_vue_vue_type_template_id_0a2a2c12___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./create.vue?vue&type=template&id=0a2a2c12& */ "./resources/js/Pages/Dashboard/orders/create.vue?vue&type=template&id=0a2a2c12&");
+/* harmony import */ var _create_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./create.vue?vue&type=script&lang=js& */ "./resources/js/Pages/Dashboard/orders/create.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _create_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _create_vue_vue_type_template_id_0a2a2c12___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _create_vue_vue_type_template_id_0a2a2c12___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/Pages/Dashboard/orders/create.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/Pages/Dashboard/orders/create.vue?vue&type=script&lang=js&":
+/*!*********************************************************************************!*\
+  !*** ./resources/js/Pages/Dashboard/orders/create.vue?vue&type=script&lang=js& ***!
+  \*********************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_create_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../node_modules/vue-loader/lib??vue-loader-options!./create.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/Pages/Dashboard/orders/create.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_create_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/Pages/Dashboard/orders/create.vue?vue&type=template&id=0a2a2c12&":
+/*!***************************************************************************************!*\
+  !*** ./resources/js/Pages/Dashboard/orders/create.vue?vue&type=template&id=0a2a2c12& ***!
+  \***************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_create_vue_vue_type_template_id_0a2a2c12___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib??vue-loader-options!./create.vue?vue&type=template&id=0a2a2c12& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/Pages/Dashboard/orders/create.vue?vue&type=template&id=0a2a2c12&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_create_vue_vue_type_template_id_0a2a2c12___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_create_vue_vue_type_template_id_0a2a2c12___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/Pages/Dashboard/orders/edit.vue":
+/*!******************************************************!*\
+  !*** ./resources/js/Pages/Dashboard/orders/edit.vue ***!
+  \******************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _edit_vue_vue_type_template_id_e6bb6cc0___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./edit.vue?vue&type=template&id=e6bb6cc0& */ "./resources/js/Pages/Dashboard/orders/edit.vue?vue&type=template&id=e6bb6cc0&");
+/* harmony import */ var _edit_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./edit.vue?vue&type=script&lang=js& */ "./resources/js/Pages/Dashboard/orders/edit.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _edit_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _edit_vue_vue_type_template_id_e6bb6cc0___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _edit_vue_vue_type_template_id_e6bb6cc0___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/Pages/Dashboard/orders/edit.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/Pages/Dashboard/orders/edit.vue?vue&type=script&lang=js&":
+/*!*******************************************************************************!*\
+  !*** ./resources/js/Pages/Dashboard/orders/edit.vue?vue&type=script&lang=js& ***!
+  \*******************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_edit_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../node_modules/vue-loader/lib??vue-loader-options!./edit.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/Pages/Dashboard/orders/edit.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_edit_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/Pages/Dashboard/orders/edit.vue?vue&type=template&id=e6bb6cc0&":
+/*!*************************************************************************************!*\
+  !*** ./resources/js/Pages/Dashboard/orders/edit.vue?vue&type=template&id=e6bb6cc0& ***!
+  \*************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_edit_vue_vue_type_template_id_e6bb6cc0___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib??vue-loader-options!./edit.vue?vue&type=template&id=e6bb6cc0& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/Pages/Dashboard/orders/edit.vue?vue&type=template&id=e6bb6cc0&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_edit_vue_vue_type_template_id_e6bb6cc0___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_edit_vue_vue_type_template_id_e6bb6cc0___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/Pages/Dashboard/orders/index.vue":
+/*!*******************************************************!*\
+  !*** ./resources/js/Pages/Dashboard/orders/index.vue ***!
+  \*******************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _index_vue_vue_type_template_id_495ea42c___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./index.vue?vue&type=template&id=495ea42c& */ "./resources/js/Pages/Dashboard/orders/index.vue?vue&type=template&id=495ea42c&");
+/* harmony import */ var _index_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./index.vue?vue&type=script&lang=js& */ "./resources/js/Pages/Dashboard/orders/index.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _index_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _index_vue_vue_type_template_id_495ea42c___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _index_vue_vue_type_template_id_495ea42c___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/Pages/Dashboard/orders/index.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/Pages/Dashboard/orders/index.vue?vue&type=script&lang=js&":
+/*!********************************************************************************!*\
+  !*** ./resources/js/Pages/Dashboard/orders/index.vue?vue&type=script&lang=js& ***!
+  \********************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../node_modules/vue-loader/lib??vue-loader-options!./index.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/Pages/Dashboard/orders/index.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/Pages/Dashboard/orders/index.vue?vue&type=template&id=495ea42c&":
+/*!**************************************************************************************!*\
+  !*** ./resources/js/Pages/Dashboard/orders/index.vue?vue&type=template&id=495ea42c& ***!
+  \**************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_template_id_495ea42c___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib??vue-loader-options!./index.vue?vue&type=template&id=495ea42c& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/Pages/Dashboard/orders/index.vue?vue&type=template&id=495ea42c&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_template_id_495ea42c___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_template_id_495ea42c___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

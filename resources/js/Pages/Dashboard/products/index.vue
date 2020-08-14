@@ -47,7 +47,7 @@
                                 </tr>
                                 </thead>
                                 <tbody class="bg-white text-gray-700">
-                                <tr v-for="product in products">
+                                <tr v-for="product in products.data" :key="product.id">
                                     <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
                                         {{ product.name }}
                                     </td>
@@ -79,6 +79,7 @@
                     </div>
                 </div>
             </div>
+            <pagination :links="products.links" class="mt-5"></pagination>
         </div>
 
     </layout>
@@ -86,9 +87,13 @@
 
 <script>
     import Layout from "../../../Shared/Layout";
+    import Pagination from "../../../Shared/Pagination";
 
     export default {
-        components: {Layout},
+        components: {
+            Layout,
+            Pagination,
+        },
         props: ['products'],
 
     }

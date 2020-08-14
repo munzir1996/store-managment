@@ -34,5 +34,8 @@ Route::middleware('auth')->prefix('/dashboard')->group(function () {
     Route::resource('/subcategories', 'SubcategoryController');
     Route::resource('/products', 'ProductController', ['update' => false]);
     Route::post('/products/update/{product}', 'ProductController@update')->name('products.update');
+    Route::resource('/orders', 'OrderController');
+    Route::put('/approve/orders/{order}', 'OrderController@approve')->name('orders.approve');
+    Route::resource('/order/details', 'OrderController');
 
 });

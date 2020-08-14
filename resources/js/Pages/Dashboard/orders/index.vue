@@ -3,11 +3,11 @@
 
         <div class="mt-8">
             <div class="flex justify-between">
-                <h2 class="text-3xl text-gray-700 font-bold">المستخدمين</h2>
+                <h2 class="text-3xl text-gray-700 font-bold">خدمة العملاء</h2>
                 <div>
-                    <inertia-link href="/dashboard/users/create"
+                    <inertia-link href="/dashboard/products/create"
                                   class="px-4 py-2 bg-indigo-500 hover:bg-indigo-600 text-white font-medium rounded">
-                        أنشاء مستخدم
+                        أنشاء طلب
                     </inertia-link>
                 </div>
             </div>
@@ -21,61 +21,56 @@
                                 <tr>
                                     <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-right text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider"
                                         style="text-align: start">
-                                        الأسم الكامل
+                                        رقم العميل
                                     </th>
                                     <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider"
                                         style="text-align: start">
-                                        أسم المستخدم
+                                        رقم العميل الأضافي
                                     </th>
                                     <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider"
                                         style="text-align: start">
-                                        الصلاحية
+                                        عنوان العميل
                                     </th>
                                     <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider"
                                         style="text-align: start">
-                                        رقم الهاتف
+                                         الرمز
                                     </th>
                                     <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider"
                                         style="text-align: start">
-                                         رقم الهاتف الأضافي
+                                         السعر الكلى
                                     </th>
                                     <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider"
                                         style="text-align: start">
-                                         العنوان
-                                    </th>
-                                    <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider"
-                                        style="text-align: start">
-                                         الرصيد
+                                         الكمية
                                     </th>
                                     <th class="px-6 py-3 border-b border-gray-200 bg-gray-50"></th>
                                 </tr>
                                 </thead>
                                 <tbody class="bg-white text-gray-700">
-                                <tr v-for="user in users.data" :key="user.id">
+                                <tr v-for="product in products.data" :key="product.id">
                                     <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                                        {{ user.name }}
+                                        {{ product.name }}
                                     </td>
                                     <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                                        {{ user.username }}
+                                        {{ product.category.name }}
                                     </td>
                                     <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                                        {{ user.permission }}
+                                        <p v-if="product.subcategory">
+                                        {{ product.subcategory.name }}
+                                        </p>
                                     </td>
                                     <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                                        {{ user.phone }}
+                                        {{ product.code }}
                                     </td>
                                     <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                                        {{ user.alt_phone }}
+                                        {{ product.total_price }}
                                     </td>
                                     <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                                        {{ user.address }}
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                                        {{ user.balance }}
+                                        {{ product.stock }}
                                     </td>
 
                                     <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 font-medium">
-                                        <inertia-link :href="`/dashboard/users/${user.id}/edit`" class="text-indigo-600 hover:text-indigo-900">تعديل</inertia-link>
+                                        <inertia-link :href="`/dashboard/products/${product.id}/edit`" class="text-indigo-600 hover:text-indigo-900">تعديل</inertia-link>
                                     </td>
                                 </tr>
                                 </tbody>
@@ -84,7 +79,7 @@
                     </div>
                 </div>
             </div>
-            <pagination :links="users.links" class="mt-5"></pagination>
+            <pagination :links="products.links" class="mt-5"></pagination>
         </div>
 
     </layout>
@@ -99,7 +94,7 @@
             Layout,
             Pagination,
         },
-        props: ['users'],
+        props: ['products'],
 
     }
 </script>

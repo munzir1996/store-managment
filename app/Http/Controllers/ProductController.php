@@ -19,7 +19,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::with(['category', 'subcategory'])->get();
+        $products = Product::with(['category', 'subcategory'])->paginate(100);
 
         return inertia()->render('Dashboard/products/index', [
             'products' => $products,

@@ -12,13 +12,13 @@
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
                         <base-input label="الأسم" name="name" v-model="form.name" :error="$page.errors.name" required>
                         </base-input>
-                        <base-input type="number" label="عمولة الأدمن" name="admin_commission"
+                        <base-input label="عمولة الأدمن" name="admin_commission"
                             v-model="form.admin_commission" :error="$page.errors.admin_commission" required>
                         </base-input>
-                        <base-input type="number" label="عمولة المسوق" name="marketer_commission"
+                        <base-input label="عمولة المسوق" name="marketer_commission"
                             v-model="form.marketer_commission" :error="$page.errors.marketer_commission" required>
                         </base-input>
-                        <base-input type="number" label="سعر التغليف" name="package_price" v-model="form.package_price"
+                        <base-input label="سعر التغليف" name="package_price" v-model="form.package_price"
                             :error="$page.errors.package_price" required></base-input>
 
                         <div>
@@ -36,7 +36,7 @@
                         </div>
 
                         <div v-if="form.weight_avaliable == '1'">
-                            <base-input type="number" label="سعر الجرام" name="gram_price" v-model="form.gram_price"
+                            <base-input label="سعر الجرام" name="gram_price" v-model="form.gram_price"
                                 :error="$page.errors.gram_price" required></base-input>
                         </div>
                     </div>
