@@ -21,6 +21,7 @@ class CreateProductsTable extends Migration
             $table->unsignedBigInteger('subcategory_id')->nullable();
             $table->decimal('added_value');
             $table->decimal('deducted_value');
+            $table->decimal('price');
             $table->decimal('total_price');
             $table->string('code')->unique();
             $table->unsignedInteger('stock');

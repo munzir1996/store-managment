@@ -35,8 +35,8 @@ class Product extends Model implements HasMedia
         return $this->belongsTo(Subcategory::class);
     }
 
-    public function setTotalPrice($weight, $addedValue, $deducted_value)
+    public function setTotalPrice($weight, $addedValue, $deducted_value, $price)
     {
-        return ($weight * $this->category->gram_price) + $addedValue - $deducted_value;
+        return ($weight * $this->category->gram_price) + $price + $addedValue - $deducted_value;
     }
 }

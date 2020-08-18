@@ -49,23 +49,23 @@ class ProductController extends Controller
     public function store(ProductStoreRequest $request)
     {
 
-        $data = $request->validated();
-
+        $request->validated();
         $product = new Product();
 
-        $product->name = $data['name'];
-        $product->weight = $data['weight'];
-        $product->category_id = $data['category_id'];
-        $product->subcategory_id = $data['subcategory_id'];
-        $product->added_value = $data['added_value'];
-        $product->deducted_value = $data['deducted_value'];
-        $product->total_price = $product->setTotalPrice($data['weight'], $data['added_value'], $data['deducted_value']);
-        $product->code = $data['code'];
-        $product->stock = $data['stock'];
+        $product->name = $request->name;
+        $product->weight = $request->weight;
+        $product->category_id = $request->category_id;
+        $product->subcategory_id = $request->subcategory_id;
+        $product->added_value = $request->added_value;
+        $product->deducted_value = $request->deducted_value;
+        $product->price = $request->price;
+        $product->total_price = $product->setTotalPrice($request->weight, $request->added_value, $request->deducted_value, $request->price);
+        $product->code = $request->code;
+        $product->stock = $request->stock;
 
         if ($request->has('image')) {
 
-            $product->addMedia($data['image'])->preservingOriginal()->toMediaCollection('products');
+            $product->addMedia($request->image)->preservingOriginal()->toMediaCollection('products');
         }
 
         $product->save();
@@ -128,7 +128,8 @@ class ProductController extends Controller
             'subcategory_id' => $request->subcategory_id,
             'added_value' => $request->added_value,
             'deducted_value' => $request->deducted_value,
-            'total_price' => $product->setTotalPrice($request->weight, $request->added_value, $request->deducted_value),
+            'price' => $request->price,
+            'total_price' => $product->setTotalPrice($request->weight, $request->added_value, $request->deducted_value, $request->price),
             'code' => $request->code,
             'stock' => $request->stock,
         ]);

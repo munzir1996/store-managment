@@ -37,5 +37,5 @@ Route::middleware('auth')->prefix('/dashboard')->group(function () {
     Route::resource('/orders', 'OrderController');
     Route::put('/approve/orders/{order}', 'OrderController@approve')->name('orders.approve');
     Route::resource('/order/details', 'OrderController');
-
+    Route::get('/get/category/products/{category}', 'OrderController@getCategoryProducts')->name('categories.categoryproducts');
 });

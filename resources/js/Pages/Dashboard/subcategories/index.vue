@@ -31,7 +31,7 @@
                                     </tr>
                                 </thead>
                                 <tbody class="bg-white text-gray-700">
-                                    <tr v-for="subcategory in subcategories.data" :key="subcategory">
+                                    <tr v-for="subcategory in subcategories.data" :key="subcategory.id">
                                         <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
                                             {{ subcategory.name }}
                                         </td>

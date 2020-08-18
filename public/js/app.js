@@ -2754,6 +2754,26 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -2764,42 +2784,62 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       form: {
-        name: '',
-        weight: 1,
+        customer_phone: '',
+        customer_alt_phone: '',
         category_id: '',
-        subcategory_id: '',
-        added_value: '',
-        deducted_value: '',
-        code: '',
-        stock: '',
-        image: ''
+        customer_address: '',
+        discount: ''
       },
-      orders: []
+      orderDetails: [],
+      total_price: 0
     };
   },
   created: function created() {},
   methods: {
-    addToCart: function addToCart(id) {
-      this.orders.push({
-        product_id: id,
-        quantity: 1
-      });
+    addProduct: function addProduct(index) {
+      console.log(index);
+      this.products[index].selected = !this.products[index].selected;
+      this.products[index].quantity++;
+      this.total_price += parseFloat(this.products[index].total_price);
     },
-    remove: function remove(index) {
-      this.orders.splice(index, 1);
+    increment: function increment(index) {
+      ++this.products[index].quantity;
+      this.total_price += parseFloat(this.products[index].total_price);
+    },
+    decrement: function decrement(index) {
+      --this.products[index].quantity;
+      this.total_price -= parseFloat(this.products[index].total_price);
+
+      if (this.products[index].quantity == 0) {
+        this.products[index].selected = !this.products[index].selected;
+      }
     },
     submit: function submit() {
       this.$inertia.post('/dashboard/products', formData);
     },
-    getSubcategoreis: function getSubcategoreis(id) {
+    getCategoryProducts: function getCategoryProducts(id) {
       var _this = this;
 
-      axios.get('/dashboard/get/subcategories/' + id).then(function (res) {
+      axios.get('/dashboard/get/category/products/' + id).then(function (res) {
         console.log(res);
-        _this.subcategories = res.data;
+        _this.products = res.data.products;
+        _this.sub_categories = res.data.subcategories;
       })["catch"](function (error) {
         console.log(error);
       });
+    },
+    submitOrder: function submitOrder() {
+      this.orderDetails = this.products.filter(function (product) {
+        return product.selected == true;
+      });
+      console.log(this.orderDetails); // axios.get('/dashboard/get/subcategories/' + id)
+      // .then(res => {
+      //     console.log(res);
+      //     this.subcategories = res.data
+      // })
+      // .catch(error => {
+      //     console.log(error)
+      // });
     }
   }
 });
@@ -3189,6 +3229,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -3205,6 +3250,7 @@ __webpack_require__.r(__webpack_exports__);
         subcategory_id: '',
         added_value: '',
         deducted_value: '',
+        price: '',
         code: '',
         stock: '',
         image: ''
@@ -3221,6 +3267,7 @@ __webpack_require__.r(__webpack_exports__);
       formData.append('category_id', this.form.category_id);
       formData.append('subcategory_id', this.form.subcategory_id);
       formData.append('added_value', this.form.added_value);
+      formData.append('price', this.form.price);
       formData.append('deducted_value', this.form.deducted_value);
       formData.append('code', this.form.code);
       formData.append('stock', this.form.stock);
@@ -3228,7 +3275,6 @@ __webpack_require__.r(__webpack_exports__);
     },
     uploadFile: function uploadFile(e) {
       this.form.image = e.target.files[0];
-      console.log(e.target.files[0]);
       console.log(this.form);
     },
     getSubcategoreis: function getSubcategoreis(id) {
@@ -3355,6 +3401,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -3371,6 +3422,7 @@ __webpack_require__.r(__webpack_exports__);
         subcategory_id: null,
         added_value: '',
         deducted_value: '',
+        price: '',
         code: '',
         stock: '',
         image: null
@@ -3393,6 +3445,7 @@ __webpack_require__.r(__webpack_exports__);
       formData.append('subcategory_id', this.form.subcategory_id);
       formData.append('added_value', this.form.added_value);
       formData.append('deducted_value', this.form.deducted_value);
+      formData.append('price', this.form.price);
       formData.append('code', this.form.code);
       formData.append('stock', this.form.stock);
       this.$inertia.post(this.$route('products.update', this.product.id), formData);
@@ -8220,9 +8273,224 @@ var render = function() {
           _c("h2", { staticClass: "text-3xl text-indigo-500 font-bold" }, [
             _vm._v(" خدمة العملاء /"),
             _c("span", { staticClass: "text-gray-700" }, [
-              _vm._v(" أنشاء طلب ")
+              _vm._v(" أنشاء طلب\n                ")
             ])
           ])
+        ]),
+        _vm._v(" "),
+        _c("base-panel", { staticClass: " mt-4" }, [
+          _c(
+            "div",
+            { staticClass: "flex" },
+            [
+              _c(
+                "button",
+                {
+                  staticClass:
+                    "mx-1 bg-gray-800 text-xs text-white px-2 py-1 font-semibold rounded uppercase hover:bg-gray-700"
+                },
+                [_vm._v("\n                    All\n                ")]
+              ),
+              _vm._v(" "),
+              _vm._l(_vm.categories, function(category) {
+                return _c(
+                  "button",
+                  {
+                    key: category.id,
+                    staticClass:
+                      "mx-1 bg-gray-800 text-xs text-white px-2 py-1 font-semibold rounded uppercase hover:bg-gray-700",
+                    on: {
+                      click: function($event) {
+                        return _vm.getCategoryProducts(category.id)
+                      }
+                    }
+                  },
+                  [
+                    _vm._v(
+                      "\n                    " +
+                        _vm._s(category.name) +
+                        "\n                "
+                    )
+                  ]
+                )
+              })
+            ],
+            2
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "flex" },
+            _vm._l(_vm.sub_categories, function(sub_category) {
+              return _c(
+                "button",
+                {
+                  key: sub_category.id,
+                  staticClass:
+                    "mx-1 my-1 bg-gray-800 text-xs text-white px-2 py-1 font-semibold rounded uppercase hover:bg-gray-700"
+                },
+                [
+                  _vm._v(
+                    "\n                    " +
+                      _vm._s(sub_category.name) +
+                      "\n                "
+                  )
+                ]
+              )
+            }),
+            0
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "grid grid-cols-1 sm:grid-cols-3 gap-6" },
+            _vm._l(_vm.products, function(product, key) {
+              return _c(
+                "div",
+                {
+                  key: key,
+                  staticClass:
+                    "mt-4 flex flex-col justify-center items-center max-w-sm mx-auto"
+                },
+                [
+                  _c("div", [
+                    _c("img", {
+                      staticClass:
+                        "bg-gray-300 h-64 w-full rounded-lg shadow-md bg-cover bg-center",
+                      attrs: { src: product.image }
+                    })
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    {
+                      staticClass:
+                        "w-56 md:w-64 bg-white -mt-10 shadow-lg rounded-lg overflow-hidden"
+                    },
+                    [
+                      _c(
+                        "h3",
+                        {
+                          staticClass:
+                            "py-2 text-center font-bold uppercase tracking-wide text-gray-800"
+                        },
+                        [
+                          _vm._v(
+                            "\n                            " +
+                              _vm._s(product.name) +
+                              "\n                        "
+                          )
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "p",
+                        {
+                          staticClass:
+                            "py-2 text-center font-bold uppercase tracking-wide text-gray-800"
+                        },
+                        [
+                          _vm._v(
+                            "الوزن :\n                            " +
+                              _vm._s(product.weight)
+                          )
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        {
+                          staticClass:
+                            "flex items-center justify-between py-2 px-3 bg-gray-200"
+                        },
+                        [
+                          _c(
+                            "span",
+                            { staticClass: "text-gray-800 font-bold " },
+                            [_vm._v("SDG " + _vm._s(product.total_price))]
+                          ),
+                          _vm._v(" "),
+                          !product.selected
+                            ? _c("div", [
+                                _c(
+                                  "button",
+                                  {
+                                    staticClass:
+                                      " bg-gray-800 text-xs text-white px-2 py-1 font-semibold rounded uppercase hover:bg-gray-700",
+                                    on: {
+                                      click: function($event) {
+                                        return _vm.addProduct(key)
+                                      }
+                                    }
+                                  },
+                                  [
+                                    _vm._v(
+                                      "\n                                    Add to cart\n                                "
+                                    )
+                                  ]
+                                )
+                              ])
+                            : _c("div", [
+                                _c(
+                                  "button",
+                                  {
+                                    staticClass:
+                                      " bg-gray-800 text-xs text-white px-2 py-1 font-semibold rounded uppercase hover:bg-gray-700",
+                                    on: {
+                                      click: function($event) {
+                                        return _vm.increment(key)
+                                      }
+                                    }
+                                  },
+                                  [
+                                    _vm._v(
+                                      "\n                                    +\n                                "
+                                    )
+                                  ]
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "button",
+                                  {
+                                    staticClass:
+                                      " bg-gray-800 text-xs text-white px-2 py-1 font-semibold rounded uppercase hover:bg-gray-700"
+                                  },
+                                  [
+                                    _vm._v(
+                                      "\n                                    " +
+                                        _vm._s(product.quantity) +
+                                        "\n                                "
+                                    )
+                                  ]
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "button",
+                                  {
+                                    staticClass:
+                                      "bg-gray-800 text-xs text-white px-2 py-1 font-semibold rounded uppercase hover:bg-gray-700",
+                                    on: {
+                                      click: function($event) {
+                                        return _vm.decrement(key)
+                                      }
+                                    }
+                                  },
+                                  [
+                                    _vm._v(
+                                      "\n                                    -\n                                "
+                                    )
+                                  ]
+                                )
+                              ])
+                        ]
+                      )
+                    ]
+                  )
+                ]
+              )
+            }),
+            0
+          )
         ]),
         _vm._v(" "),
         _c("base-panel", { staticClass: " mt-4" }, [
@@ -8311,200 +8579,39 @@ var render = function() {
                 })
               ],
               1
+            ),
+            _vm._v(" "),
+            _c("div", [
+              _c("p", { staticClass: "text-gray-700" }, [
+                _vm._v(
+                  "\n                     المبلغ الكلى : SDG " +
+                    _vm._s(_vm.total_price) +
+                    "\n                    "
+                )
+              ])
+            ]),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "flex justify-end mt-4" },
+              [
+                _c(
+                  "base-button",
+                  {
+                    attrs: { primary: "" },
+                    on: {
+                      click: function($event) {
+                        $event.preventDefault()
+                        return _vm.submitOrder($event)
+                      }
+                    }
+                  },
+                  [_vm._v("أنشاء طلب")]
+                )
+              ],
+              1
             )
           ])
-        ]),
-        _vm._v(" "),
-        _c("base-panel", { staticClass: " mt-4" }, [
-          _c(
-            "div",
-            { staticClass: "flex" },
-            _vm._l(_vm.categories, function(category) {
-              return _c(
-                "button",
-                {
-                  key: category.id,
-                  staticClass:
-                    "mx-1 bg-gray-800 text-xs text-white px-2 py-1 font-semibold rounded uppercase hover:bg-gray-700"
-                },
-                [
-                  _vm._v(
-                    "\n                    " +
-                      _vm._s(category.name) +
-                      "\n                "
-                  )
-                ]
-              )
-            }),
-            0
-          ),
-          _vm._v(" "),
-          _c(
-            "div",
-            { staticClass: "flex" },
-            _vm._l(_vm.sub_categories, function(sub_category) {
-              return _c(
-                "button",
-                {
-                  key: sub_category.id,
-                  staticClass:
-                    "mx-1 my-1 bg-gray-800 text-xs text-white px-2 py-1 font-semibold rounded uppercase hover:bg-gray-700"
-                },
-                [
-                  _vm._v(
-                    "\n                    " +
-                      _vm._s(sub_category.name) +
-                      "\n                "
-                  )
-                ]
-              )
-            }),
-            0
-          ),
-          _vm._v(" "),
-          _c(
-            "div",
-            { staticClass: "grid grid-cols-1 sm:grid-cols-3 gap-6" },
-            _vm._l(_vm.products, function(product) {
-              return _c(
-                "div",
-                {
-                  key: product.id,
-                  staticClass:
-                    "mt-4 flex flex-col justify-center items-center max-w-sm mx-auto"
-                },
-                [
-                  _c("div", [
-                    _c("img", {
-                      staticClass:
-                        "bg-gray-300 h-64 w-full rounded-lg shadow-md bg-cover bg-center",
-                      attrs: { src: product.image }
-                    })
-                  ]),
-                  _vm._v(" "),
-                  _c(
-                    "div",
-                    {
-                      staticClass:
-                        "w-56 md:w-64 bg-white -mt-10 shadow-lg rounded-lg overflow-hidden"
-                    },
-                    [
-                      _c(
-                        "h3",
-                        {
-                          staticClass:
-                            "py-2 text-center font-bold uppercase tracking-wide text-gray-800"
-                        },
-                        [
-                          _vm._v(
-                            _vm._s(product.name) +
-                              "\n                            "
-                          )
-                        ]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "p",
-                        {
-                          staticClass:
-                            "py-2 text-center font-bold uppercase tracking-wide text-gray-800"
-                        },
-                        [_vm._v("الوزن : " + _vm._s(product.weight))]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "div",
-                        {
-                          staticClass:
-                            "flex items-center justify-between py-2 px-3 bg-gray-200"
-                        },
-                        [
-                          _c(
-                            "span",
-                            { staticClass: "text-gray-800 font-bold " },
-                            [_vm._v("SDG " + _vm._s(product.total_price))]
-                          ),
-                          _vm._v(" "),
-                          _c("div", [
-                            _c(
-                              "button",
-                              {
-                                staticClass:
-                                  " bg-gray-800 text-xs text-white px-2 py-1 font-semibold rounded uppercase hover:bg-gray-700"
-                              },
-                              [
-                                _vm._v(
-                                  "\n                                        +\n                                    "
-                                )
-                              ]
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "button",
-                              {
-                                staticClass:
-                                  " bg-gray-800 text-xs text-white px-2 py-1 font-semibold rounded uppercase hover:bg-gray-700"
-                              },
-                              [
-                                _vm._v(
-                                  "\n                                        0\n                                    "
-                                )
-                              ]
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "button",
-                              {
-                                staticClass:
-                                  " bg-gray-800 text-xs text-white px-2 py-1 font-semibold rounded uppercase hover:bg-gray-700"
-                              },
-                              [
-                                _vm._v(
-                                  "\n                                        -\n                                    "
-                                )
-                              ]
-                            )
-                          ]),
-                          _vm._v(" "),
-                          _c("div", [
-                            _c(
-                              "button",
-                              {
-                                staticClass:
-                                  " bg-gray-800 text-xs text-white px-2 py-1 font-semibold rounded uppercase hover:bg-gray-700",
-                                on: {
-                                  click: function($event) {
-                                    return _vm.addToCart(product.id)
-                                  }
-                                }
-                              },
-                              [
-                                _vm._v(
-                                  "\n                                        Add to cart\n                                    "
-                                )
-                              ]
-                            )
-                          ])
-                        ]
-                      )
-                    ]
-                  )
-                ]
-              )
-            }),
-            0
-          ),
-          _vm._v(" "),
-          _c(
-            "div",
-            { staticClass: "flex justify-end mt-4" },
-            [
-              _c("base-button", { attrs: { primary: "" } }, [
-                _vm._v("أنشاء طلب")
-              ])
-            ],
-            1
-          )
         ])
       ],
       1
@@ -9461,6 +9568,28 @@ var render = function() {
                     [
                       _c("base-input", {
                         attrs: {
+                          label: "السعر",
+                          name: "added_value",
+                          error: _vm.$page.errors.price,
+                          required: ""
+                        },
+                        model: {
+                          value: _vm.form.price,
+                          callback: function($$v) {
+                            _vm.$set(_vm.form, "price", $$v)
+                          },
+                          expression: "form.price"
+                        }
+                      })
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    [
+                      _c("base-input", {
+                        attrs: {
                           label: "القيمة المضافة",
                           name: "added_value",
                           error: _vm.$page.errors.added_value,
@@ -9854,6 +9983,28 @@ var render = function() {
                         )
                       : _vm._e()
                   ]),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    [
+                      _c("base-input", {
+                        attrs: {
+                          label: "السعر",
+                          name: "added_value",
+                          error: _vm.$page.errors.price,
+                          required: ""
+                        },
+                        model: {
+                          value: _vm.form.price,
+                          callback: function($$v) {
+                            _vm.$set(_vm.form, "price", $$v)
+                          },
+                          expression: "form.price"
+                        }
+                      })
+                    ],
+                    1
+                  ),
                   _vm._v(" "),
                   _c(
                     "div",
@@ -10729,7 +10880,7 @@ var render = function() {
                         "tbody",
                         { staticClass: "bg-white text-gray-700" },
                         _vm._l(_vm.subcategories.data, function(subcategory) {
-                          return _c("tr", { key: subcategory }, [
+                          return _c("tr", { key: subcategory.id }, [
                             _c(
                               "td",
                               {

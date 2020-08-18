@@ -13,6 +13,7 @@ $factory->define(Product::class, function (Faker $faker) {
         'weight' => $faker->numberBetween($min = 0, $max = 100),
         'added_value' => $faker->numberBetween($min = 0, $max = 100),
         'deducted_value' => $faker->numberBetween($min = 0, $max = 100),
+        'price' => $faker->numberBetween($min = 0, $max = 100),
         'total_price' => $faker->numberBetween($min = 0, $max = 100),
         'code' => $faker->numberBetween($min = 0, $max = 100),
         'stock' => $faker->numberBetween($min = 0, $max = 100),

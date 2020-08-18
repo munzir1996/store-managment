@@ -57,6 +57,11 @@
                             </span>
                         </div>
                         <div>
+                            <base-input label="السعر" name="added_value"
+                                v-model="form.price" :error="$page.errors.price" required>
+                            </base-input>
+                        </div>
+                        <div>
                             <base-input label="القيمة المضافة" name="added_value"
                                 v-model="form.added_value" :error="$page.errors.added_value" required>
                             </base-input>
@@ -115,6 +120,7 @@
                     subcategory_id: null,
                     added_value: '',
                     deducted_value: '',
+                    price: '',
                     code: '',
                     stock: '',
                     image: null,
@@ -137,6 +143,7 @@
                 formData.append('subcategory_id', this.form.subcategory_id)
                 formData.append('added_value', this.form.added_value)
                 formData.append('deducted_value', this.form.deducted_value)
+                formData.append('price', this.form.price)
                 formData.append('code', this.form.code)
                 formData.append('stock', this.form.stock)
 
@@ -150,13 +157,13 @@
 
             getSubcategoreis(id) {
                 axios.get('/dashboard/get/subcategories/' + id)
-                    .then(res => {
-                        console.log(res);
-                        this.subcategories = res.data
-                    })
-                    .catch(error => {
-                        console.log(error)
-                    });
+                .then(res => {
+                    console.log(res);
+                    this.subcategories = res.data
+                })
+                .catch(error => {
+                    console.log(error)
+                });
             }
         }
     }

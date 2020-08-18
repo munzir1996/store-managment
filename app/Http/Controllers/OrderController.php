@@ -7,6 +7,7 @@ use App\Http\Requests\OrderStoreRequest;
 use App\Order;
 use App\OrderDetail;
 use App\Product;
+use App\Subcategory;
 use Illuminate\Http\Request;
 
 class OrderController extends Controller
@@ -32,6 +33,8 @@ class OrderController extends Controller
         $categories = Category::with('subcategories')->get();
         $products->map(function ($product) {
             $product['image'] = $product->image;
+            $product['selected'] = false;
+            $product['quantity'] = 0;
             return $product;
         });
 
@@ -117,6 +120,24 @@ class OrderController extends Controller
         ]);
         $order->setApproveTotalPrice();
 
+    }
+
+    public function getCategoryProducts(Category $category)
+    {
+        $products = Product::where('category_id', $category->id)->get();
+        $subcategories = Subcategory::where('category_id', $category->id)->get();
+
+        $products->map(function ($product) {
+            $product['image'] = $product->image;
+            $product['selected'] = false;
+            $product['quantity'] = 0;
+            return $product;
+        });
+
+        return response()->json([
+            'products' => $products,
+            'subcategories' => $subcategories,
+        ]);
     }
 
 
