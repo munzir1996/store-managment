@@ -17,11 +17,11 @@ class CreateOrdersTable extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
             $table->string('customer_phone');
-            $table->string('customer_alt_phone');
+            $table->string('customer_alt_phone')->nullable();
             $table->string('customer_address');
             $table->decimal('delivery_price')->nullable();
             $table->decimal('added_price')->nullable();
-            $table->decimal('discount')->nullable();
+            $table->decimal('discount')->default(0);
             $table->decimal('total_price')->default(0);
             $table->string('status')->default(Config::get('constants.order.not_delivered'));
             $table->foreignId('delivery_man_id')->nullable();

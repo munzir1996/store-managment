@@ -3,14 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Category;
-use App\Http\Requests\OrderStoreRequest;
+use App\Http\Requests\CustomerServiceStoreRequest;
 use App\Order;
-use App\OrderDetail;
 use App\Product;
-use App\Subcategory;
 use Illuminate\Http\Request;
 
-class OrderController extends Controller
+class CustomerServiceController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -21,7 +19,7 @@ class OrderController extends Controller
     {
         $orders = Order::where('user_id', auth()->id())->paginate(100);
 
-        return inertia()->render('Dashboard/orders/index', [
+        return inertia()->render('Dashboard/customer-services/index', [
             'orders' => $orders,
         ]);
     }
@@ -42,7 +40,7 @@ class OrderController extends Controller
             return $product;
         });
 
-        return inertia()->render('Dashboard/orders/create', [
+        return inertia()->render('Dashboard/customer-services/create', [
             'products' => $products,
             'categories' => $categories,
         ]);
@@ -54,7 +52,7 @@ class OrderController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(OrderStoreRequest $request)
+    public function store(CustomerServiceStoreRequest $request)
     {
         $request->validated();
 
@@ -73,7 +71,7 @@ class OrderController extends Controller
             'message' => 'تم أضافة الطلب'
         ]);
 
-        return redirect()->route('orders.index');
+        return redirect()->route('customer.services.index');
 
     }
 
@@ -122,17 +120,4 @@ class OrderController extends Controller
         //
     }
 
-    public function approve(Request $request, Order $order){
-
-        $order->update([
-            'added_price' => $request->added_price,
-            'delivery_price' => $request->delivery_price,
-            'delivery_man_id' => $request->delivery_man_id,
-        ]);
-        $order->setApproveTotalPrice();
-
-    }
-
 }
-
-

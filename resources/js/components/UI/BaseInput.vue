@@ -4,6 +4,9 @@
               v-if="label"
               v-text="label"
         ></span>
+        <span class="text-indigo-500 text-xs"
+              v-if="option"
+        >({{option}})</span>
         <input class="form-input border-gray-300 focus:border-indigo-400 focus:shadow-none focus:bg-white mt-1 block w-full"
                :type="type"
                :value="value"
@@ -23,6 +26,7 @@
             value: null,
             name: String,
             label: String,
+            option: String,
             placeholder: String,
             required: String,
             error: null,

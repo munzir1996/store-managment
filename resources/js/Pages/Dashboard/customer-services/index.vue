@@ -5,7 +5,7 @@
             <div class="flex justify-between">
                 <h2 class="text-3xl text-gray-700 font-bold">خدمة العملاء</h2>
                 <div>
-                    <inertia-link href="/dashboard/order/details/create"
+                    <inertia-link href="/dashboard/order/customer/services/create"
                                   class="px-4 py-2 bg-indigo-500 hover:bg-indigo-600 text-white font-medium rounded">
                         أنشاء طلب
                     </inertia-link>

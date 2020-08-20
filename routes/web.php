@@ -37,5 +37,7 @@ Route::middleware('auth')->prefix('/dashboard')->group(function () {
     Route::resource('/orders', 'OrderController');
     Route::put('/approve/orders/{order}', 'OrderController@approve')->name('orders.approve');
     Route::resource('/order/details', 'OrderController');
-    Route::get('/get/category/products/{category}', 'OrderController@getCategoryProducts')->name('categories.categoryproducts');
+    Route::get('/customer/services', 'CustomerServiceController@index')->name('customers.service.index');
+    Route::get('/customer/services/create', 'CustomerServiceController@index')->name('customer.services.index');
+    Route::post('/customer/services', 'CustomerServiceController@store')->name('customer.services.store');
 });

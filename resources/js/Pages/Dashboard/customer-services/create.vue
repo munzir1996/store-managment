@@ -172,7 +172,7 @@
             submit() {
 
                 this.form.orderDetails = this.products.filter(product => product.selected == true);
-                this.$inertia.post('/dashboard/order/details', this.form);
+                this.$inertia.post('/dashboard/customer/services', this.form);
 
             },
             getCategoryProducts(category) {
