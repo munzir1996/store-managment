@@ -5,6 +5,7 @@ namespace Tests\Feature\Dashboard;
 use App\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Spatie\Permission\Models\Permission;
 use Tests\TestCase;
 use function MongoDB\BSON\toJSON;
 
@@ -29,6 +30,8 @@ class UserTest extends TestCase
     public function can_create_new_user()
     {
 
+        $permission = factory(Permission::class)->create();
+
         $this->login();
 
         $this->post('/dashboard/users', [
@@ -39,7 +42,8 @@ class UserTest extends TestCase
             'address' => 'Arkawet',
             'balance' => 50,
             'password' => 'password',
-            'password_confirmation' => 'password'
+            'password_confirmation' => 'password',
+            'permission' => $permission->id,
         ]);
 
         $this->assertDatabaseHas('users', [
@@ -61,6 +65,7 @@ class UserTest extends TestCase
             'name' => 'Update',
         ]);
 
+        $permission = factory(Permission::class)->create();
 
         $this->login();
 
@@ -72,7 +77,8 @@ class UserTest extends TestCase
             'address' => 'Arkawet',
             'balance' => 50,
             'password' => 'password',
-            'password_confirmation' => 'password'
+            'password_confirmation' => 'password',
+            'permission' => $permission->id,
         ]);
 
         $this->assertDatabaseHas('users', [

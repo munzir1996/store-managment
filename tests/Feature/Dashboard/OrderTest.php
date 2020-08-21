@@ -24,7 +24,7 @@ class OrderTest extends TestCase
             'total_price' => 10,
         ]);
 
-        $order_details = [
+        $orderDetails = [
             [
                 'product_id' => $product[0]->id,
                 'quantity' => 1,
@@ -40,7 +40,7 @@ class OrderTest extends TestCase
             'customer_alt_phone' => '0994989901',
             'customer_address' => 'customer_address',
             'discount' => 5,
-            'order_details' => $order_details,
+            'orderDetails' => $orderDetails,
         ]);
 
         $this->assertDatabaseHas('orders', [

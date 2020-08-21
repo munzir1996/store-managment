@@ -9598,7 +9598,7 @@ var render = function() {
                 {
                   staticClass:
                     "px-4 py-2 bg-indigo-500 hover:bg-indigo-600 text-white font-medium rounded",
-                  attrs: { href: "/dashboard/order/details/create" }
+                  attrs: { href: "/dashboard/order/customer/services/create" }
                 },
                 [_vm._v("\n                    أنشاء طلب\n                ")]
               )
