@@ -1,8 +1,10 @@
 <?php
 
+use App\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Spatie\Permission\Models\Permission;
 
 class DatabaseSeeder extends Seeder
 {
@@ -14,7 +16,9 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
 
-        DB::table('users')->insert([
+        $this->call(RolesAndPermissionsSeeder::class);
+
+        $user = User::create([
             'name' => 'Admin',
             'username' => 'admin@admin.com',
             'phone' => '0123456789',
@@ -25,8 +29,8 @@ class DatabaseSeeder extends Seeder
             'password' => Hash::make('password'), // password
         ]);
 
+        $user->givePermissionTo('super-admin');
         // $this->call(UserSeeder::class);
-        $this->call(RolesAndPermissionsSeeder::class);
 
     }
 }

@@ -27,7 +27,6 @@
                         {{subcategory.name}}
                     </button>
                 </div>
-                <!-- <form @submit.prevent="submit"> -->
                 <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
 
                     <div v-for="(product, key) in form.orderDetails" :key="key"
@@ -41,8 +40,7 @@
                             <h3 class="py-2 text-center font-bold uppercase tracking-wide text-gray-800">
                                 {{product.name}}
                             </h3>
-                            <p class="py-2 text-center font-bold uppercase tracking-wide text-gray-800">الوزن :
-                                {{product.weight}}</p>
+
                             <div class="flex items-center justify-between py-2 px-3 bg-gray-200">
                                 <span class="text-gray-800 font-bold ">SDG {{product.total_price}}</span>
                                 <div v-if="!product.selected">
@@ -71,16 +69,15 @@
 
                 </div>
 
-                <!-- </form> -->
             </base-panel>
             <base-panel class=" mt-4">
                 <form @submit.prevent="submit">
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
                         <div>
-                            <base-input label="رقم العميل" name="customer_phone" v-model="form.customer_phone" :error="$page.errors.customer_phone" required></base-input>
+                            <base-input type="number" label="رقم العميل" name="customer_phone" v-model="form.customer_phone" :error="$page.errors.customer_phone" required></base-input>
                         </div>
                         <div>
-                            <base-input label=" رقم العميل الأضافي" option="أختياري" name="customer_alt_phone" v-model="form.customer_alt_phone" :error="$page.errors.customer_alt_phone"></base-input>
+                            <base-input type="number" label=" رقم العميل الأضافي" option="أختياري" name="customer_alt_phone" v-model="form.customer_alt_phone" :error="$page.errors.customer_alt_phone"></base-input>
                         </div>
                         <div>
                             <label class="block">

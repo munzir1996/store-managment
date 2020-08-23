@@ -3,7 +3,7 @@
         <div class="mx-auto w-full">
             <div>
                 <!-- Card stats -->
-                <div class="flex flex-wrap -mx-4">
+                <!-- <div class="flex flex-wrap -mx-4">
                     <div class="w-full md:w-1/3 px-4">
                         <div class="relative flex flex-col min-w-0 break-words bg-white rounded mb-6 xl:mb-0 shadow-lg">
                             <div class="flex-auto p-4">
@@ -112,12 +112,12 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> -->
             </div>
         </div>
 
         <div class="mt-12">
-            <h2 class="text-2xl font-medium">Tables</h2>
+            <!-- <h2 class="text-2xl font-medium">Tables</h2>
             <div class="mt-4">
                 <div class="flex flex-col">
                     <div class="-my-2 py-2 overflow-x-auto sm:-mx-6 sm:px-6">
@@ -219,7 +219,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> -->
         </div>
 
     </layout>

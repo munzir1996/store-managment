@@ -15,5 +15,6 @@ $factory->define(OrderDetail::class, function (Faker $faker) {
         'product_id' => function(){
             return factory(Product::class)->create()->id;
         },
+        'quantity' => $faker->numberBetween($min = 1, $max = 100),
     ];
 });

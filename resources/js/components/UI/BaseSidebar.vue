@@ -92,8 +92,8 @@
                         <span class="mx-2 text-gray-300">المنتجات</span>
                     </a>
                 </li>
-                <li class="px-2 py-3 hover:bg-gray-900 rounded mt-2">
-                    <a href="#" class="flex items-center">
+                <li class="px-2 py-3 hover:bg-gray-900 rounded mt-2" :class="route().current('orders.*')? 'bg-gray-900' : ''">
+                    <a href="/dashboard/orders" class="flex items-center">
                         <svg class="w-6 text-gray-500" fill="none" stroke-linecap="round" stroke-linejoin="round"
                             stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
                             <path
@@ -103,10 +103,16 @@
                         <span class="mx-2 text-gray-300">الطلبات</span>
                     </a>
                 </li>
-                <li class="px-2 py-3 hover:bg-gray-900 rounded mt-2">
+                <li class="px-2 py-3 hover:bg-gray-900 rounded mt-2" :class="route().current('customer.*')? 'bg-gray-900' : ''">
                     <a href="/dashboard/customer/services" class="flex items-center">
                         <svg viewBox="0 0 20 20" fill="currentColor" class="phone text-gray-500 w-6 h-6"><path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"></path></svg>
                         <span class="mx-2 text-gray-300">خدمة العملاء</span>
+                    </a>
+                </li>
+                <li class="px-2 py-3 hover:bg-gray-900 rounded mt-2" :class="route().current('deliveries.*')? 'bg-gray-900' : ''">
+                    <a href="/dashboard/deliveries" class="flex items-center">
+                        <svg viewBox="0 0 20 20" fill="currentColor" class="phone text-gray-500 w-6 h-6"><path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"></path></svg>
+                        <span class="mx-2 text-gray-300">رجال التوصيل</span>
                     </a>
                 </li>
                 <li class="px-2 py-3 hover:bg-gray-900 rounded mt-2">

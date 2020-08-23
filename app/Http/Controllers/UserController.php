@@ -16,7 +16,7 @@ class UserController extends Controller
     {
         $users = User::paginate(100);
         $users->map(function ($user) {
-            $user['permission'] = $user->permissions->pluck('name')->first();
+            $user['permission'] = $user->permission;
         });
 
         return inertia()->render('Dashboard/users/index', [

@@ -24,7 +24,7 @@ class OrderDetailTest extends TestCase
 
         $orderDetail = [
             [
-                'product_id' => $product->id,
+                'id' => $product->id,
                 'quantity' => 5,
             ],
         ];

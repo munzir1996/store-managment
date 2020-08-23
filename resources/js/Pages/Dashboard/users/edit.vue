@@ -25,8 +25,8 @@
                         <base-input type="number" label="رقم الهاتف الأضافي" name="alt_phone" v-model="form.alt_phone" :error="$page.errors.alt_phone" required></base-input>
                         <base-input label="العنوان" name="address" v-model="form.address" :error="$page.errors.address" required></base-input>
                         <base-input label="الرصيد" name="balance" v-model="form.balance" :error="$page.errors.balance" required></base-input>
-                        <base-input label="كلمة المرور" type="password" v-model="form.password" :error="$page.errors.password"></base-input>
-                        <base-input label="تأكيد كلمة المرور" type="password"
+                        <base-input label="كلمة المرور" option="أختياري" type="password" v-model="form.password" :error="$page.errors.password"></base-input>
+                        <base-input label="تأكيد كلمة المرور" option="أختياري" type="password"
                                     v-model="form.password_confirmation" :error="$page.errors.password_confirmation"></base-input>
                     </div>
                     <div class="flex justify-end mt-4">

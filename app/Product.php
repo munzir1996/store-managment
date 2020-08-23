@@ -11,6 +11,7 @@ class Product extends Model implements HasMedia
     use InteractsWithMedia;
 
     protected $guarded = [];
+    protected $with = ['category'];
 
     public function setSubcategoryIdAttribute($value)
     {

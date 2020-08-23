@@ -32,12 +32,20 @@ Route::middleware('auth')->prefix('/dashboard')->group(function () {
     Route::resource('/categories', 'CategoryController');
     Route::get('/get/subcategories/{id}', 'CategoryController@getSubcategories')->name('categories.getsubcategories');
     Route::resource('/subcategories', 'SubcategoryController');
+
     Route::resource('/products', 'ProductController', ['update' => false]);
     Route::post('/products/update/{product}', 'ProductController@update')->name('products.update');
+
     Route::resource('/orders', 'OrderController');
-    Route::put('/approve/orders/{order}', 'OrderController@approve')->name('orders.approve');
+
     Route::resource('/order/details', 'OrderController');
-    Route::get('/customer/services', 'CustomerServiceController@index')->name('customers.service.index');
-    Route::get('/customer/services/create', 'CustomerServiceController@index')->name('customer.services.index');
+
+    Route::get('/customer/services/create', 'CustomerServiceController@create')->name('customer.services.create');
+    Route::get('/customer/services', 'CustomerServiceController@index')->name('customer.services.index');
+    Route::get('/customer/services/{order}', 'CustomerServiceController@show')->name('customer.services.show');
     Route::post('/customer/services', 'CustomerServiceController@store')->name('customer.services.store');
+
+    Route::get('/deliveries', 'DeliveryController@index')->name('deliveries.index');
+    Route::get('/deliveries/{order}', 'DeliveryController@show')->name('deliveries.show');
+
 });

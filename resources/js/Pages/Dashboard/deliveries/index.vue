@@ -3,12 +3,12 @@
 
         <div class="mt-8">
             <div class="flex justify-between">
-                <h2 class="text-3xl text-gray-700 font-bold">المستخدمين</h2>
+                <h2 class="text-3xl text-gray-700 font-bold">رجال التوصيل</h2>
                 <div>
-                    <inertia-link href="/dashboard/users/create"
+                    <!-- <inertia-link href="/dashboard/customer/orders/create"
                                   class="px-4 py-2 bg-indigo-500 hover:bg-indigo-600 text-white font-medium rounded">
-                        أنشاء مستخدم
-                    </inertia-link>
+                        أنشاء طلب
+                    </inertia-link> -->
                 </div>
             </div>
             <div class="mt-4">
@@ -21,61 +21,54 @@
                                 <tr>
                                     <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-right text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider"
                                         style="text-align: start">
-                                        الأسم الكامل
+                                        #
+                                    </th>
+                                    <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-right text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider"
+                                        style="text-align: start">
+                                        رقم العميل
                                     </th>
                                     <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider"
                                         style="text-align: start">
-                                        أسم المستخدم
+                                         الحالة
                                     </th>
                                     <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider"
                                         style="text-align: start">
-                                        الصلاحية
+                                         السعر الكلى
                                     </th>
                                     <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider"
                                         style="text-align: start">
-                                        رقم الهاتف
+                                         التاريخ
                                     </th>
                                     <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider"
                                         style="text-align: start">
-                                         رقم الهاتف الأضافي
                                     </th>
-                                    <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider"
-                                        style="text-align: start">
-                                         العنوان
-                                    </th>
-                                    <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider"
-                                        style="text-align: start">
-                                         الرصيد
-                                    </th>
-                                    <th class="px-6 py-3 border-b border-gray-200 bg-gray-50"></th>
                                 </tr>
                                 </thead>
                                 <tbody class="bg-white text-gray-700">
-                                <tr v-for="user in users.data" :key="user.id">
+                                <tr v-for="order in orders.data" :key="order.id">
                                     <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                                        {{ user.name }}
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                                        {{ user.username }}
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-500">
-                                        {{ user.permission }}
+                                        {{ order.id }}
                                     </td>
                                     <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                                        {{ user.phone }}
+                                        {{ order.customer_phone }}
                                     </td>
                                     <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                                        {{ user.alt_phone }}
+                                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full"
+                                        :class="[(order.status == 'لم يتم التوصيل' ? 'bg-red-100 text-red-800' : ''),
+                                        (order.status === 'تم التوصيل' ? 'bg-green-100 text-green-800' : ''),
+                                        (order.status === 'تم التأجيل' ? 'bg-yellow-100 text-yellow-800' : ''),
+                                        (order.status === 'تم الأعادة' ? 'bg-gray-100 text-gray-800' : ''),]">
+                                            {{ order.status }}
+                                        </span>
                                     </td>
                                     <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                                        {{ user.address }}
+                                        {{ order.total_price }}
                                     </td>
                                     <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                                        {{ user.balance }}
+                                        {{ order.created_at }}
                                     </td>
-
                                     <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 font-medium">
-                                        <inertia-link :href="`/dashboard/users/${user.id}/edit`" class="text-indigo-600 hover:text-indigo-900">تعديل</inertia-link>
+                                        <inertia-link :href="`/dashboard/deliveries/${order.id}`" class="text-gray-500 hover:text-indigo-900">عرض</inertia-link>
                                     </td>
                                 </tr>
                                 </tbody>
@@ -84,7 +77,7 @@
                     </div>
                 </div>
             </div>
-            <pagination :links="users.links" class="mt-5"></pagination>
+            <pagination :links="orders.links" class="mt-5"></pagination>
         </div>
 
     </layout>
@@ -99,7 +92,7 @@
             Layout,
             Pagination,
         },
-        props: ['users'],
+        props: ['orders'],
 
     }
 </script>

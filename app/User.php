@@ -39,15 +39,14 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public static function getAllpermissions($user){
+    // public static function getAllpermissions($user){
 
-        return $user->getPermissionNames();
-    }
+    //     return $user->getPermissionNames();
+    // }
 
-    public function getPermissions()
+    public function getPermissionAttribute()
     {
-        return $this->getPermissionNames();
-
+        return $this->permissions->pluck('name')->first();
     }
 
 }

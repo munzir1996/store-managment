@@ -4,10 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Category;
 use App\Http\Requests\OrderStoreRequest;
+use App\Http\Requests\OrderUpdateRequest;
 use App\Order;
 use App\OrderDetail;
 use App\Product;
 use App\Subcategory;
+use App\User;
 use Illuminate\Http\Request;
 
 class OrderController extends Controller
@@ -19,11 +21,13 @@ class OrderController extends Controller
      */
     public function index()
     {
-        $orders = Order::where('user_id', auth()->id())->paginate(100);
+
+        $orders = Order::with(['user', 'deliveryMan'])->latest()->paginate(100);
 
         return inertia()->render('Dashboard/orders/index', [
             'orders' => $orders,
         ]);
+
     }
 
     /**
@@ -33,19 +37,7 @@ class OrderController extends Controller
      */
     public function create()
     {
-        $products = Product::all();
-        $categories = Category::with('subcategories')->get();
-        $products->map(function ($product) {
-            $product['image'] = $product->image;
-            $product['selected'] = false;
-            $product['quantity'] = 0;
-            return $product;
-        });
-
-        return inertia()->render('Dashboard/orders/create', [
-            'products' => $products,
-            'categories' => $categories,
-        ]);
+        //
     }
 
     /**
@@ -54,27 +46,9 @@ class OrderController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(OrderStoreRequest $request)
+    public function store(Request $request)
     {
-        $request->validated();
-
-        $order = Order::create([
-            'customer_phone' => $request->customer_phone,
-            'customer_alt_phone' => $request->customer_alt_phone,
-            'customer_address' => $request->customer_address,
-            'discount' => $request->discount,
-            'user_id' => auth()->id(),
-        ]);
-
-        $order->setOrderDetails($request->orderDetails);
-
-        session()->flash('toast', [
-            'type' => 'success',
-            'message' => 'تم أضافة الطلب'
-        ]);
-
-        return redirect()->route('orders.index');
-
+        //
     }
 
     /**
@@ -85,7 +59,18 @@ class OrderController extends Controller
      */
     public function show(Order $order)
     {
-        //
+        $orderDetails = OrderDetail::where('order_id', $order->id)->get();
+        $users = User::permission('delivery-man')->get();
+
+        $orderDetails->map(function ($orderDetail) {
+            $orderDetail['image'] = $orderDetail->product->image;
+            return $orderDetail;
+        });
+        return inertia()->render('Dashboard/orders/show', [
+            'order' => $order,
+            'users' => $users,
+            'orderDetails' => $orderDetails,
+        ]);
     }
 
     /**
@@ -106,9 +91,32 @@ class OrderController extends Controller
      * @param  \App\Order  $order
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Order $order)
+    public function update(OrderUpdateRequest $request, Order $order)
     {
-        //
+        $request->validated();
+
+        $order->update([
+            'delivery_price' => $request->delivery_price,
+            'delivery_man_id' => $request->delivery_man_id,
+            'status' => $request->status,
+            'added_price' => $request->added_price,
+            'total_price' => $order->setOrderTotalPrice($request->added_price, $request->delivery_price),
+        ]);
+
+        if ($order->isDelivered()) {
+            $order->setOrderUserBalance();
+        }
+        if ($order->isReturned()) {
+            $order->returnOrderDetailsQuantityToStock();
+        }
+
+        session()->flash('toast', [
+            'type' => 'success',
+            'message' => 'تمت العملية بنجاح'
+        ]);
+
+        return redirect()->route('orders.index');
+
     }
 
     /**
@@ -120,17 +128,6 @@ class OrderController extends Controller
     public function destroy(Order $order)
     {
         //
-    }
-
-    public function approve(Request $request, Order $order){
-
-        $order->update([
-            'added_price' => $request->added_price,
-            'delivery_price' => $request->delivery_price,
-            'delivery_man_id' => $request->delivery_man_id,
-        ]);
-        $order->setApproveTotalPrice();
-
     }
 
 }

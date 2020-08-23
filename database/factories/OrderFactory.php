@@ -5,6 +5,7 @@
 use App\Order;
 use App\User;
 use Faker\Generator as Faker;
+use Illuminate\Support\Facades\Config;
 
 $factory->define(Order::class, function (Faker $faker) {
     return [
@@ -21,5 +22,17 @@ $factory->define(Order::class, function (Faker $faker) {
         'user_id' => function(){
             return factory(User::class)->create()->id;
         },
+    ];
+});
+
+$factory->state(App\Order::class, 'deliverd', function($faker){
+    return[
+        'status' => Config::get('constants.order.deliverd'),
+    ];
+});
+
+$factory->state(App\Order::class, 'returned', function($faker){
+    return[
+        'status' => Config::get('constants.order.returned'),
     ];
 });

@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Category;
 use App\Http\Requests\CustomerServiceStoreRequest;
 use App\Order;
+use App\OrderDetail;
 use App\Product;
+use App\User;
 use Illuminate\Http\Request;
 
 class CustomerServiceController extends Controller
@@ -17,7 +19,7 @@ class CustomerServiceController extends Controller
      */
     public function index()
     {
-        $orders = Order::where('user_id', auth()->id())->paginate(100);
+        $orders = Order::latest()->paginate(100);
 
         return inertia()->render('Dashboard/customer-services/index', [
             'orders' => $orders,
@@ -83,7 +85,19 @@ class CustomerServiceController extends Controller
      */
     public function show(Order $order)
     {
-        //
+
+        $orderDetails = OrderDetail::where('order_id', $order->id)->get();
+
+        $orderDetails->map(function ($orderDetail) {
+            $orderDetail['image'] = $orderDetail->product->image;
+            return $orderDetail;
+        });
+
+        return inertia()->render('Dashboard/deliveries/show', [
+            'order' => $order,
+            'orderDetails' => $orderDetails,
+        ]);
+
     }
 
     /**

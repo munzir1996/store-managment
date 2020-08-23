@@ -25,11 +25,11 @@ class CustomerServiceTest extends TestCase
 
         $orderDetails = [
             [
-                'product_id' => $product[0]->id,
+                'id' => $product[0]->id,
                 'quantity' => 1,
             ],
             [
-                'product_id' => $product[1]->id,
+                'id' => $product[1]->id,
                 'quantity' => 1,
             ],
         ];
